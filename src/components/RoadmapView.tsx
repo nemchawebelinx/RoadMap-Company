@@ -36,10 +36,8 @@ export function RoadmapView({ horizon, dayWidth, cardHeight, railWidth }: Roadma
   const [taskModal, setTaskModal] = useState<{ open: boolean; task: Task | null; layerId: string }>({ open: false, task: null, layerId: "" });
   const [infoModal, setInfoModal] = useState<{ open: boolean; title: string; info: Record<string, string | number | boolean> }>({ open: false, title: "", info: {} });
 
-  // Sort layers: visible sorted by order, then hidden sorted by order
   const visibleLayers = layers.filter((l) => !l.isHidden).sort((a, b) => a.order - b.order);
   const hiddenLayers = layers.filter((l) => l.isHidden).sort((a, b) => a.order - b.order);
-  const sortedLayers = [...visibleLayers, ...hiddenLayers];
 
   const computeLayerHeight = (layer: Layer) => {
     const layerTasks = tasks.filter((t) => t.layerId === layer.id);
@@ -51,7 +49,7 @@ export function RoadmapView({ horizon, dayWidth, cardHeight, railWidth }: Roadma
 
   return (
     <>
-      {sortedLayers.map((layer) => {
+      {visibleLayers.map((layer) => {
         const layerTasks = tasks.filter((t) => t.layerId === layer.id);
         const stacked = stackTasks(layerTasks, horizon);
         const height = computeLayerHeight(layer);
@@ -105,8 +103,8 @@ export function RoadmapView({ horizon, dayWidth, cardHeight, railWidth }: Roadma
                 <button
                   className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)] inline-flex items-center"
                   onClick={() => toggleLayerHidden(layer.id)}
-                  title={layer.isHidden ? "Show" : "Hide"}
-                >{layer.isHidden ? <EyeIcon /> : <EyeOffIcon />}</button>
+                  title="Hide"
+                ><EyeOffIcon /></button>
                 <button
                   className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-red-600/50 rounded text-[var(--text-muted)]"
                   onClick={() => { if (confirm(`Delete layer "${layer.name}"?`)) deleteLayer(layer.id); }}
@@ -121,7 +119,6 @@ export function RoadmapView({ horizon, dayWidth, cardHeight, railWidth }: Roadma
               style={{
                 width: horizon.totalDays * dayWidth,
                 minHeight: height,
-                opacity: layer.isHidden ? 0.4 : 1,
               }}
             >
               {stacked.map((s) => (
@@ -146,6 +143,32 @@ export function RoadmapView({ horizon, dayWidth, cardHeight, railWidth }: Roadma
           </div>
         );
       })}
+
+      {hiddenLayers.length > 0 && (
+        <div className="flex" style={{ minHeight: 28 }}>
+          <div
+            className="sticky left-0 z-20 shrink-0 bg-[var(--bg)] border-r border-b border-[var(--border)] flex flex-wrap items-center gap-1 px-2 py-1"
+            style={{ width: railWidth, minHeight: 28 }}
+          >
+            {hiddenLayers.map((layer) => (
+              <button
+                key={layer.id}
+                className="text-[9px] px-1.5 py-0.5 bg-[var(--bg-tertiary)] rounded text-[var(--text-muted)] hover:text-white inline-flex items-center gap-1 max-w-full"
+                onClick={() => toggleLayerHidden(layer.id)}
+                title={`Show "${layer.name}"`}
+              >
+                <span className="w-2 h-2 rounded-sm shrink-0" style={{ backgroundColor: colorToHex(layer.color) }} />
+                <EyeIcon size={10} />
+                <span className="truncate">{layer.name}</span>
+              </button>
+            ))}
+          </div>
+          <div
+            className="border-b border-[var(--border)]"
+            style={{ width: horizon.totalDays * dayWidth, minHeight: 28 }}
+          />
+        </div>
+      )}
 
       {/* Add Layer button */}
       <div className="flex" style={{ minHeight: 36 }}>
