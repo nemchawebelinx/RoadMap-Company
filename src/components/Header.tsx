@@ -57,7 +57,7 @@ export function Header({ onCenterToday }: HeaderProps) {
 
   const handleSave = async () => {
     const data = getExportData();
-    localStorage.setItem("visionary-suite-state", JSON.stringify(data));
+    localStorage.setItem("webelinx-roadmap-state", JSON.stringify(data));
     if (isFirebaseConfigured()) {
       const ok = await saveToFirestore(data);
       if (!ok) alert("Firestore save failed – saved to localStorage only.");
@@ -79,7 +79,7 @@ export function Header({ onCenterToday }: HeaderProps) {
   return (
     <header className="flex items-center gap-2 px-3 py-1.5 border-b border-[var(--border)] bg-[var(--bg-secondary)] text-sm shrink-0 flex-wrap min-h-[40px]">
       {/* App name */}
-      <span className="font-bold text-white mr-2">VisionarySuite</span>
+      <span className="font-bold text-white mr-2">WebelinxGames</span>
 
       {/* View tabs */}
       <button

@@ -12,7 +12,7 @@ import {
 } from "./types";
 import { emptyState, normalizeProjectState } from "./schema";
 
-const STORAGE_KEY = "visionary-suite-state";
+const STORAGE_KEY = "webelinx-roadmap-state";
 
 interface AppState extends ProjectState {
   // UI state
