@@ -165,45 +165,51 @@ export function ResourcesView({ horizon, dayWidth, cardHeight, railWidth }: Reso
                 <div key={resource.id} className="flex" style={{ minHeight: rowHeight }}>
                   {/* Resource rail */}
                   <div
-                    className="sticky left-0 z-20 shrink-0 bg-[var(--bg)] border-r border-b border-[var(--border)] flex flex-col justify-center px-2 py-1"
+                    className="sticky left-0 z-20 shrink-0 bg-[var(--bg)] border-r border-b border-[var(--border)] flex items-start gap-1.5 pl-5 pr-2 py-1"
                     style={{ width: railWidth, minHeight: rowHeight }}
                   >
-                    <span className="text-xs font-medium text-white truncate">{resource.name}</span>
-                    <span className="text-[9px] text-[var(--text-muted)] truncate">
-                      {resource.position}
-                    </span>
-                    <div className="flex gap-0.5 mt-0.5">
-                      <button
-                        className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
-                        onClick={() => setResModal({ open: true, resource, deptId: dept.id })}
-                        title="Edit"
-                      >✎</button>
-                      <button
-                        className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
-                        onClick={() => setInfoModal({
-                          open: true,
-                          title: resource.name,
-                          info: {
-                            Name: resource.name,
-                            Position: resource.position || "(none)",
-                            Department: dept.name,
-                            "Available Hours": resource.availableHours,
-                            Notes: resource.notes || "(none)",
-                            Tasks: bars.length,
-                          },
-                        })}
-                        title="Info"
-                      >ℹ</button>
-                      <button
-                        className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)] inline-flex items-center"
-                        onClick={() => toggleResourceHidden(resource.id)}
-                        title="Hide"
-                      ><EyeOffIcon /></button>
-                      <button
-                        className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-red-600/50 rounded text-[var(--text-muted)]"
-                        onClick={() => { if (confirm(`Delete "${resource.name}"?`)) deleteResource(resource.id); }}
-                        title="Delete"
-                      >✕</button>
+                    <span
+                      className="w-2 h-2 rounded-full shrink-0 mt-1"
+                      style={{ backgroundColor: colorToHex(dept.color) }}
+                    />
+                    <div className="min-w-0 flex-1 flex flex-col justify-center">
+                      <span className="text-xs font-medium text-white truncate">{resource.name}</span>
+                      <span className="text-[9px] text-[var(--text-muted)] truncate">
+                        {resource.position}
+                      </span>
+                      <div className="flex gap-0.5 mt-0.5">
+                        <button
+                          className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
+                          onClick={() => setResModal({ open: true, resource, deptId: dept.id })}
+                          title="Edit"
+                        >✎</button>
+                        <button
+                          className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
+                          onClick={() => setInfoModal({
+                            open: true,
+                            title: resource.name,
+                            info: {
+                              Name: resource.name,
+                              Position: resource.position || "(none)",
+                              Department: dept.name,
+                              "Available Hours": resource.availableHours,
+                              Notes: resource.notes || "(none)",
+                              Tasks: bars.length,
+                            },
+                          })}
+                          title="Info"
+                        >ℹ</button>
+                        <button
+                          className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)] inline-flex items-center"
+                          onClick={() => toggleResourceHidden(resource.id)}
+                          title="Hide"
+                        ><EyeOffIcon /></button>
+                        <button
+                          className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-red-600/50 rounded text-[var(--text-muted)]"
+                          onClick={() => { if (confirm(`Delete "${resource.name}"?`)) deleteResource(resource.id); }}
+                          title="Delete"
+                        >✕</button>
+                      </div>
                     </div>
                   </div>
 
@@ -291,7 +297,7 @@ export function ResourcesView({ horizon, dayWidth, cardHeight, railWidth }: Reso
             {hiddenResources.length > 0 && (
               <div className="flex" style={{ minHeight: 28 }}>
                 <div
-                  className="sticky left-0 z-20 shrink-0 bg-[var(--bg)] border-r border-b border-[var(--border)] flex flex-wrap items-center gap-1 px-2 py-1"
+                  className="sticky left-0 z-20 shrink-0 bg-[var(--bg)] border-r border-b border-[var(--border)] flex flex-wrap items-center gap-1 pl-5 pr-2 py-1"
                   style={{ width: railWidth, minHeight: 28 }}
                 >
                   {hiddenResources.map((r) => (
@@ -301,6 +307,7 @@ export function ResourcesView({ horizon, dayWidth, cardHeight, railWidth }: Reso
                       onClick={() => toggleResourceHidden(r.id)}
                       title={`Show "${r.name}"`}
                     >
+                      <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: colorToHex(dept.color) }} />
                       <EyeIcon size={10} />
                       <span className="truncate">{r.name}</span>
                     </button>
