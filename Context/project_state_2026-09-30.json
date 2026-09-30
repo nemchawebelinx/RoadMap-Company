@@ -1,0 +1,1365 @@
+{
+  "layers": [
+    {
+      "id": "layer-3",
+      "name": "Content",
+      "color": "orange-500",
+      "description": "",
+      "isHidden": false,
+      "order": 30
+    },
+    {
+      "id": "layer-2",
+      "name": "IFP",
+      "color": "purple-500",
+      "description": "",
+      "isHidden": false,
+      "order": 40
+    },
+    {
+      "id": "layer-4",
+      "name": "Tech Requierments",
+      "color": "emerald-500",
+      "description": "",
+      "isHidden": false,
+      "order": 50
+    },
+    {
+      "id": "layer-1790244656518",
+      "name": "Tooling",
+      "color": "lime-500",
+      "description": "",
+      "isHidden": false,
+      "order": 60
+    },
+    {
+      "id": "layer-1790174281721",
+      "name": "Promotional",
+      "color": "yellow-500",
+      "description": "",
+      "isHidden": true,
+      "order": 0
+    },
+    {
+      "id": "layer-1790175466659",
+      "name": "Collect Points",
+      "color": "yellow-500",
+      "description": "",
+      "isHidden": true,
+      "order": 10
+    },
+    {
+      "id": "layer-1",
+      "name": "AB Tests",
+      "color": "stone-500",
+      "description": "",
+      "isHidden": true,
+      "order": 20
+    },
+    {
+      "id": "layer-1790245252627",
+      "name": "Odmori",
+      "color": "white",
+      "description": "",
+      "isHidden": true,
+      "order": 70
+    },
+    {
+      "id": "layer-1790377187987",
+      "name": "Company",
+      "color": "blue-500",
+      "description": "",
+      "isHidden": true,
+      "order": 80
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task-1790174895646",
+      "layerId": "layer-1790175466659",
+      "name": "PF - 5",
+      "description": "",
+      "startDate": "2026-09-28",
+      "durationDays": 7,
+      "priority": "high",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790175004258",
+      "layerId": "layer-1790174281721",
+      "name": "World Food Day - Promotional Event",
+      "description": "",
+      "startDate": "2026-10-13",
+      "durationDays": 7,
+      "priority": "high",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790175081042",
+      "layerId": "layer-1790175466659",
+      "name": "Relic Hunt",
+      "description": "",
+      "startDate": "2026-10-12",
+      "durationDays": 7,
+      "priority": "high",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790175254973",
+      "layerId": "layer-1790175466659",
+      "name": "Rodeo Rush",
+      "description": "",
+      "startDate": "2026-10-26",
+      "durationDays": 7,
+      "priority": "high",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790175746206",
+      "layerId": "layer-1790175466659",
+      "name": "Fated Fair",
+      "description": "",
+      "startDate": "2026-11-09",
+      "durationDays": 7,
+      "priority": "mid",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790175814298",
+      "layerId": "layer-1790175466659",
+      "name": "Wonder Deck",
+      "description": "",
+      "startDate": "2026-11-23",
+      "durationDays": 7,
+      "priority": "high",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790175845506",
+      "layerId": "layer-1790175466659",
+      "name": "Relic Hunt",
+      "description": "",
+      "startDate": "2026-12-07",
+      "durationDays": 7,
+      "priority": "high",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790175881058",
+      "layerId": "layer-1790175466659",
+      "name": "Rodeo Rush",
+      "description": "",
+      "startDate": "2026-12-21",
+      "durationDays": 7,
+      "priority": "high",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790176037990",
+      "layerId": "layer-1790174281721",
+      "name": "Halloween",
+      "description": "",
+      "startDate": "2026-10-28",
+      "durationDays": 7,
+      "priority": "high",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790176106074",
+      "layerId": "layer-1790174281721",
+      "name": "World Children's Day",
+      "description": "",
+      "startDate": "2026-11-17",
+      "durationDays": 7,
+      "priority": "high",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790176137175",
+      "layerId": "layer-1790174281721",
+      "name": "Thanksgiving",
+      "description": "",
+      "startDate": "2026-11-24",
+      "durationDays": 7,
+      "priority": "high",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790176179225",
+      "layerId": "layer-1790174281721",
+      "name": "Christmas",
+      "description": "",
+      "startDate": "2026-12-22",
+      "durationDays": 7,
+      "priority": "high",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790176241433",
+      "layerId": "layer-1790174281721",
+      "name": "New Year",
+      "description": "",
+      "startDate": "2026-12-29",
+      "durationDays": 7,
+      "priority": "high",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790176431702",
+      "layerId": "layer-1790174281721",
+      "name": "PF - Christmas",
+      "description": "",
+      "startDate": "2026-12-18",
+      "durationDays": 14,
+      "priority": "high",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790176776489",
+      "layerId": "layer-1790174281721",
+      "name": "PF - Weekly Streak",
+      "description": "",
+      "startDate": "2026-11-30",
+      "durationDays": 14,
+      "priority": "high",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790176843172",
+      "layerId": "layer-1790174281721",
+      "name": "PF - Halloween",
+      "description": "",
+      "startDate": "2026-10-23",
+      "durationDays": 14,
+      "priority": "high",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790176962281",
+      "layerId": "layer-1790174281721",
+      "name": "PF - New Chapter 8",
+      "description": "",
+      "startDate": "2026-11-06",
+      "durationDays": 10,
+      "priority": "high",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790232694199",
+      "layerId": "layer-1",
+      "name": "MG Challenge",
+      "description": "",
+      "startDate": "2026-09-14",
+      "durationDays": 19,
+      "priority": "high",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790232746755",
+      "layerId": "layer-1",
+      "name": "Daily Reward",
+      "description": "",
+      "startDate": "2026-09-17",
+      "durationDays": 17,
+      "priority": "high",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790232825531",
+      "layerId": "layer-1",
+      "name": "Chapter swap",
+      "description": "",
+      "startDate": "2026-10-04",
+      "durationDays": 18,
+      "priority": "high",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790232900105",
+      "layerId": "layer-1",
+      "name": "Tutorial",
+      "description": "",
+      "startDate": "2026-10-22",
+      "durationDays": 17,
+      "priority": "high",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790233014857",
+      "layerId": "layer-1",
+      "name": "Weekly Streak",
+      "description": "",
+      "startDate": "2026-11-08",
+      "durationDays": 16,
+      "priority": "high",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790233104222",
+      "layerId": "layer-1",
+      "name": "IAP Prices",
+      "description": "",
+      "startDate": "2026-10-22",
+      "durationDays": 60,
+      "priority": "high",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790238306206",
+      "layerId": "layer-3",
+      "name": "Chapter 8",
+      "description": "",
+      "startDate": "2026-08-18",
+      "durationDays": 80,
+      "priority": "high",
+      "assigneeIds": [
+        "res-1790238449269",
+        "res-1790238554673",
+        "res-1790238540044"
+      ],
+      "assignees": [
+        {
+          "resourceId": "res-1790238449269",
+          "percentage": 10,
+          "startOffsetDays": 0,
+          "durationDays": 80
+        },
+        {
+          "resourceId": "res-1790238554673",
+          "percentage": 75,
+          "startOffsetDays": 0,
+          "durationDays": 80
+        },
+        {
+          "resourceId": "res-1790238540044",
+          "percentage": 100,
+          "startOffsetDays": 0,
+          "durationDays": 80
+        }
+      ]
+    },
+    {
+      "id": "task-1790238919191",
+      "layerId": "layer-3",
+      "name": "Chapter 7 (2)",
+      "description": "",
+      "startDate": "2026-09-03",
+      "durationDays": 125,
+      "priority": "high",
+      "assigneeIds": [
+        "res-1790238554673",
+        "res-1790238449269",
+        "res-1790239188805",
+        "res-1790239162154",
+        "res-3"
+      ],
+      "assignees": [
+        {
+          "resourceId": "res-1790238554673",
+          "percentage": 100,
+          "startOffsetDays": 0,
+          "durationDays": 125
+        },
+        {
+          "resourceId": "res-1790238449269",
+          "percentage": 20,
+          "startOffsetDays": 0,
+          "durationDays": 125
+        },
+        {
+          "resourceId": "res-1790239188805",
+          "percentage": 80,
+          "startOffsetDays": 40,
+          "durationDays": 85
+        },
+        {
+          "resourceId": "res-1790239162154",
+          "percentage": 80,
+          "startOffsetDays": 40,
+          "durationDays": 85
+        },
+        {
+          "resourceId": "res-3",
+          "percentage": 85,
+          "startOffsetDays": 0,
+          "durationDays": 125
+        }
+      ]
+    },
+    {
+      "id": "task-1790239475485",
+      "layerId": "layer-3",
+      "name": "Level Fixes",
+      "description": "",
+      "startDate": "2026-12-01",
+      "durationDays": 60,
+      "priority": "low",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790240552526",
+      "layerId": "layer-3",
+      "name": "Winter LE",
+      "description": "",
+      "startDate": "2026-11-01",
+      "durationDays": 50,
+      "priority": "high",
+      "assigneeIds": [
+        "res-1790238540044"
+      ],
+      "assignees": [
+        {
+          "resourceId": "res-1790238540044",
+          "percentage": 50,
+          "startOffsetDays": 12,
+          "durationDays": 38
+        }
+      ]
+    },
+    {
+      "id": "task-1790241097593",
+      "layerId": "layer-2",
+      "name": "Shop Redesign",
+      "description": "",
+      "startDate": "2026-08-18",
+      "durationDays": 45,
+      "priority": "high",
+      "assigneeIds": [
+        "res-1"
+      ],
+      "assignees": [
+        {
+          "resourceId": "res-1",
+          "percentage": 75,
+          "startOffsetDays": 0,
+          "durationDays": 45
+        }
+      ]
+    },
+    {
+      "id": "task-1790241161616",
+      "layerId": "layer-2",
+      "name": "Dail Survey",
+      "description": "",
+      "startDate": "2026-09-22",
+      "durationDays": 12,
+      "priority": "high",
+      "assigneeIds": [
+        "res-1"
+      ],
+      "assignees": [
+        {
+          "resourceId": "res-1",
+          "percentage": 75,
+          "startOffsetDays": 0,
+          "durationDays": 12
+        }
+      ]
+    },
+    {
+      "id": "task-1790241441360",
+      "layerId": "layer-2",
+      "name": "Weekly MG Steak",
+      "description": "",
+      "startDate": "2026-09-22",
+      "durationDays": 25,
+      "priority": "high",
+      "assigneeIds": [
+        "res-2"
+      ],
+      "assignees": [
+        {
+          "resourceId": "res-2",
+          "percentage": 80,
+          "startOffsetDays": 0,
+          "durationDays": 25
+        }
+      ]
+    },
+    {
+      "id": "task-1790241658590",
+      "layerId": "layer-2",
+      "name": "Package Collectables",
+      "description": "",
+      "startDate": "2026-09-01",
+      "durationDays": 25,
+      "priority": "high",
+      "assigneeIds": [
+        "res-1790239188805"
+      ],
+      "assignees": [
+        {
+          "resourceId": "res-1790239188805",
+          "percentage": 90,
+          "startOffsetDays": 0,
+          "durationDays": 25
+        }
+      ]
+    },
+    {
+      "id": "task-1790241793957",
+      "layerId": "layer-2",
+      "name": "New Tutorial + Leading",
+      "description": "",
+      "startDate": "2026-08-18",
+      "durationDays": 46,
+      "priority": "high",
+      "assigneeIds": [
+        "res-1790239162154"
+      ],
+      "assignees": [
+        {
+          "resourceId": "res-1790239162154",
+          "percentage": 90,
+          "startOffsetDays": 0,
+          "durationDays": 46
+        }
+      ]
+    },
+    {
+      "id": "task-1790242035662",
+      "layerId": "layer-2",
+      "name": "Collectables",
+      "description": "",
+      "startDate": "2026-10-05",
+      "durationDays": 54,
+      "priority": "high",
+      "assigneeIds": [
+        "res-1",
+        "res-1790243819574",
+        "res-1790243836916"
+      ],
+      "assignees": [
+        {
+          "resourceId": "res-1",
+          "percentage": 80,
+          "startOffsetDays": 0,
+          "durationDays": 54
+        },
+        {
+          "resourceId": "res-1790243819574",
+          "percentage": 90,
+          "startOffsetDays": 0,
+          "durationDays": 20
+        },
+        {
+          "resourceId": "res-1790243836916",
+          "percentage": 90,
+          "startOffsetDays": 0,
+          "durationDays": 20
+        }
+      ]
+    },
+    {
+      "id": "task-1790242305966",
+      "layerId": "layer-2",
+      "name": "Matrix Bi/Tri",
+      "description": "",
+      "startDate": "2026-10-06",
+      "durationDays": 74,
+      "priority": "high",
+      "assigneeIds": [
+        "res-1790239143316"
+      ],
+      "assignees": [
+        {
+          "resourceId": "res-1790239143316",
+          "percentage": 80,
+          "startOffsetDays": 0,
+          "durationDays": 74
+        }
+      ]
+    },
+    {
+      "id": "task-1790242630893",
+      "layerId": "layer-4",
+      "name": "Google Play In app Review",
+      "description": "",
+      "startDate": "2026-09-28",
+      "durationDays": 5,
+      "priority": "high",
+      "assigneeIds": [
+        "res-1790170531248"
+      ],
+      "assignees": [
+        {
+          "resourceId": "res-1790170531248",
+          "percentage": 50,
+          "startOffsetDays": 0,
+          "durationDays": 5
+        }
+      ]
+    },
+    {
+      "id": "task-1790242753580",
+      "layerId": "layer-4",
+      "name": "Cabin 2 - UI/UX",
+      "description": "",
+      "startDate": "2026-12-01",
+      "durationDays": 15,
+      "priority": "high",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790242806661",
+      "layerId": "layer-4",
+      "name": "Package MainMenu",
+      "description": "",
+      "startDate": "2026-11-16",
+      "durationDays": 12,
+      "priority": "mid",
+      "assigneeIds": [
+        "res-2"
+      ],
+      "assignees": [
+        {
+          "resourceId": "res-2",
+          "percentage": 80,
+          "startOffsetDays": 0,
+          "durationDays": 12
+        }
+      ]
+    },
+    {
+      "id": "task-1790242864772",
+      "layerId": "layer-4",
+      "name": "Unity 6+",
+      "description": "",
+      "startDate": "2027-01-04",
+      "durationDays": 15,
+      "priority": "low",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790242975911",
+      "layerId": "layer-4",
+      "name": "FI - EndGame LeaderBord",
+      "description": "",
+      "startDate": "2026-11-15",
+      "durationDays": 20,
+      "priority": "mid",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790243004223",
+      "layerId": "layer-4",
+      "name": "FI - Inventar",
+      "description": "",
+      "startDate": "2026-11-15",
+      "durationDays": 20,
+      "priority": "mid",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790243025164",
+      "layerId": "layer-4",
+      "name": "FI - MG Challenge",
+      "description": "",
+      "startDate": "2026-11-15",
+      "durationDays": 30,
+      "priority": "mid",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790243154309",
+      "layerId": "layer-4",
+      "name": "ART UI Refactor",
+      "description": "",
+      "startDate": "2026-11-01",
+      "durationDays": 90,
+      "priority": "mid",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790243239545",
+      "layerId": "layer-4",
+      "name": "Improvment+Release+Bug",
+      "description": "",
+      "startDate": "2026-09-01",
+      "durationDays": 365,
+      "priority": "mid",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790243303243",
+      "layerId": "layer-4",
+      "name": "Firebase Update",
+      "description": "",
+      "startDate": "2027-01-04",
+      "durationDays": 15,
+      "priority": "low",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790243383342",
+      "layerId": "layer-4",
+      "name": "Architecture C4",
+      "description": "",
+      "startDate": "2027-01-04",
+      "durationDays": 30,
+      "priority": "low",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790243694653",
+      "layerId": "layer-4",
+      "name": "Refactor MainMenu",
+      "description": "",
+      "startDate": "2026-12-31",
+      "durationDays": 20,
+      "priority": "mid",
+      "assigneeIds": [
+        "res-2"
+      ],
+      "assignees": [
+        {
+          "resourceId": "res-2",
+          "percentage": 80,
+          "startOffsetDays": 0,
+          "durationDays": 20
+        }
+      ]
+    },
+    {
+      "id": "task-1790244043518",
+      "layerId": "layer-4",
+      "name": "Refactor Queue",
+      "description": "",
+      "startDate": "2027-01-15",
+      "durationDays": 30,
+      "priority": "mid",
+      "assigneeIds": [
+        "res-2"
+      ],
+      "assignees": [
+        {
+          "resourceId": "res-2",
+          "percentage": 75,
+          "startOffsetDays": 0,
+          "durationDays": 30
+        }
+      ]
+    },
+    {
+      "id": "task-1790244707378",
+      "layerId": "layer-1790244656518",
+      "name": "Marketing Tool",
+      "description": "",
+      "startDate": "2026-08-15",
+      "durationDays": 109,
+      "priority": "high",
+      "assigneeIds": [
+        "res-1790244900549"
+      ],
+      "assignees": [
+        {
+          "resourceId": "res-1790244900549",
+          "percentage": 75,
+          "startOffsetDays": 0,
+          "durationDays": 109
+        }
+      ]
+    },
+    {
+      "id": "task-1790244752529",
+      "layerId": "layer-1790244656518",
+      "name": "QA tool",
+      "description": "",
+      "startDate": "2026-09-01",
+      "durationDays": 90,
+      "priority": "high",
+      "assigneeIds": [
+        "res-1790244917219"
+      ],
+      "assignees": [
+        {
+          "resourceId": "res-1790244917219",
+          "percentage": 50,
+          "startOffsetDays": 0,
+          "durationDays": 90
+        }
+      ]
+    },
+    {
+      "id": "task-1790244857896",
+      "layerId": "layer-1790244656518",
+      "name": "ContentCreator Backand",
+      "description": "",
+      "startDate": "2026-10-20",
+      "durationDays": 20,
+      "priority": "high",
+      "assigneeIds": [
+        "res-1790238449269",
+        "res-1790238540044",
+        "res-1790244900549",
+        "res-1790244917219"
+      ],
+      "assignees": [
+        {
+          "resourceId": "res-1790238449269",
+          "percentage": 75,
+          "startOffsetDays": 0,
+          "durationDays": 20
+        },
+        {
+          "resourceId": "res-1790238540044",
+          "percentage": 25,
+          "startOffsetDays": 0,
+          "durationDays": 20
+        },
+        {
+          "resourceId": "res-1790244900549",
+          "percentage": 50,
+          "startOffsetDays": 0,
+          "durationDays": 20
+        },
+        {
+          "resourceId": "res-1790244917219",
+          "percentage": 25,
+          "startOffsetDays": 0,
+          "durationDays": 20
+        }
+      ]
+    },
+    {
+      "id": "task-1790245289366",
+      "layerId": "layer-1790245252627",
+      "name": "Nemke 2w",
+      "description": "",
+      "startDate": "2026-11-02",
+      "durationDays": 14,
+      "priority": "high",
+      "assigneeIds": [
+        "res-2"
+      ],
+      "assignees": [
+        {
+          "resourceId": "res-2",
+          "percentage": 100,
+          "startOffsetDays": 0,
+          "durationDays": 14
+        }
+      ]
+    },
+    {
+      "id": "task-1790246157645",
+      "layerId": "layer-1790244656518",
+      "name": "YT Reporter",
+      "description": "",
+      "startDate": "2027-01-04",
+      "durationDays": 20,
+      "priority": "low",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790246191655",
+      "layerId": "layer-1790244656518",
+      "name": "AlertingSystem",
+      "description": "",
+      "startDate": "2027-01-04",
+      "durationDays": 30,
+      "priority": "low",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790374716600",
+      "layerId": "layer-1790244656518",
+      "name": "Content Creator Frontend",
+      "description": "",
+      "startDate": "2026-11-09",
+      "durationDays": 53,
+      "priority": "high",
+      "assigneeIds": [
+        "res-1790238540044",
+        "res-1790238449269"
+      ],
+      "assignees": [
+        {
+          "resourceId": "res-1790238540044",
+          "percentage": 50,
+          "startOffsetDays": 0,
+          "durationDays": 53
+        },
+        {
+          "resourceId": "res-1790238449269",
+          "percentage": 50,
+          "startOffsetDays": 0,
+          "durationDays": 53
+        }
+      ]
+    },
+    {
+      "id": "task-1790375809904",
+      "layerId": "layer-1790244656518",
+      "name": "Level Assemble Tool fixes and improvements",
+      "description": "",
+      "startDate": "2026-10-15",
+      "durationDays": 20,
+      "priority": "high",
+      "assigneeIds": [
+        "res-1790238540044"
+      ],
+      "assignees": [
+        {
+          "resourceId": "res-1790238540044",
+          "percentage": 75,
+          "startOffsetDays": 0,
+          "durationDays": 20
+        }
+      ]
+    },
+    {
+      "id": "task-1790376236279",
+      "layerId": "layer-1790244656518",
+      "name": "NAISys",
+      "description": "",
+      "startDate": "2026-12-01",
+      "durationDays": 30,
+      "priority": "mid",
+      "assigneeIds": [
+        "res-1"
+      ],
+      "assignees": [
+        {
+          "resourceId": "res-1",
+          "percentage": 75,
+          "startOffsetDays": 0,
+          "durationDays": 30
+        }
+      ]
+    },
+    {
+      "id": "task-1790376735369",
+      "layerId": "layer-1790244656518",
+      "name": "WG Engine Template Project",
+      "description": "",
+      "startDate": "2027-01-04",
+      "durationDays": 30,
+      "priority": "low",
+      "assigneeIds": [
+        "res-1790239162154"
+      ],
+      "assignees": [
+        {
+          "resourceId": "res-1790239162154",
+          "percentage": 100,
+          "startOffsetDays": 0,
+          "durationDays": 30
+        }
+      ]
+    },
+    {
+      "id": "task-1790377333030",
+      "layerId": "layer-1790377187987",
+      "name": "Madagascar",
+      "description": "",
+      "startDate": "2027-01-15",
+      "durationDays": 30,
+      "priority": "mid",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790377372173",
+      "layerId": "layer-1790377187987",
+      "name": "Company Goals",
+      "description": "",
+      "startDate": "2027-01-15",
+      "durationDays": 30,
+      "priority": "mid",
+      "assigneeIds": [],
+      "assignees": []
+    },
+    {
+      "id": "task-1790377396085",
+      "layerId": "layer-1790377187987",
+      "name": "PR procces",
+      "description": "",
+      "startDate": "2027-01-15",
+      "durationDays": 30,
+      "priority": "high",
+      "assigneeIds": [],
+      "assignees": []
+    }
+  ],
+  "milestones": [
+    {
+      "id": "milestone-1790233453538",
+      "title": "2.64.0",
+      "date": "2026-10-10",
+      "color": "purple-500",
+      "description": "Shone/Minja\nShop Redesign, Finish Screen, New Tutorial, Leading Player"
+    },
+    {
+      "id": "milestone-1790233542539",
+      "title": "2.65.0",
+      "date": "2026-10-21",
+      "color": "purple-500",
+      "description": "Nemke\nWeekly Streak, Daily Survey"
+    },
+    {
+      "id": "milestone-1790233756302",
+      "title": "2.64.0 100%",
+      "date": "2026-10-22",
+      "color": "pink-500",
+      "description": "AB Test condition"
+    },
+    {
+      "id": "milestone-1790234374209",
+      "title": "2.66.0 - CH 8",
+      "date": "2026-10-31",
+      "color": "orange-500",
+      "description": "Tacic\nChapter 8"
+    },
+    {
+      "id": "milestone-1790234458505",
+      "title": "Chapter 8 - 100%",
+      "date": "2026-11-07",
+      "color": "pink-500",
+      "description": ""
+    },
+    {
+      "id": "milestone-1790234562211",
+      "title": "2.65.0 - 100%",
+      "date": "2026-11-08",
+      "color": "pink-500",
+      "description": "AB test Condition"
+    },
+    {
+      "id": "milestone-1790234817665",
+      "title": "Matrix + Bi/Tri",
+      "date": "2026-12-01",
+      "color": "red-500",
+      "description": "Da core bude dovoljan za BiFold/TriFold"
+    },
+    {
+      "id": "milestone-1790234865144",
+      "title": "2.67.0",
+      "date": "2026-12-02",
+      "color": "purple-500",
+      "description": "Minja\nCollectables"
+    },
+    {
+      "id": "milestone-1790235030198",
+      "title": "2.68.0",
+      "date": "2026-12-19",
+      "color": "purple-500",
+      "description": "AcaS\nMatrix + BiFold/TriFold"
+    }
+  ],
+  "departments": [
+    {
+      "id": "dep-1",
+      "name": "Dev Feature",
+      "color": "blue-500",
+      "isHidden": false,
+      "order": 10
+    },
+    {
+      "id": "dep-1790238491696",
+      "name": "Art Content",
+      "color": "orange-500",
+      "isHidden": true,
+      "order": 30
+    },
+    {
+      "id": "dep-1790244882277",
+      "name": "RM",
+      "color": "lime-500",
+      "isHidden": true,
+      "order": 40
+    },
+    {
+      "id": "dep-1790238410162",
+      "name": "Dev Content",
+      "color": "orange-500",
+      "isHidden": true,
+      "order": 0
+    },
+    {
+      "id": "dep-1790377505944",
+      "name": "HR",
+      "color": "blue-500",
+      "isHidden": true,
+      "order": 60
+    },
+    {
+      "id": "dep-1790377447215",
+      "name": "QA",
+      "color": "white",
+      "isHidden": true,
+      "order": 50
+    },
+    {
+      "id": "dep-2",
+      "name": "Art",
+      "color": "purple-500",
+      "isHidden": true,
+      "order": 20
+    }
+  ],
+  "resources": [
+    {
+      "id": "res-1",
+      "departmentId": "dep-1",
+      "name": "Minja",
+      "picture": "",
+      "availableHours": 40,
+      "position": "Senior Unity",
+      "notes": "",
+      "isHidden": false
+    },
+    {
+      "id": "res-2",
+      "departmentId": "dep-1",
+      "name": "Nemke",
+      "picture": "",
+      "availableHours": 40,
+      "position": "Senior Unity",
+      "notes": "",
+      "isHidden": false
+    },
+    {
+      "id": "res-3",
+      "departmentId": "dep-2",
+      "name": "Luka",
+      "picture": "",
+      "availableHours": 30,
+      "position": "Leader",
+      "notes": "",
+      "isHidden": false
+    },
+    {
+      "id": "res-1790170531248",
+      "departmentId": "dep-1",
+      "name": "Nemcha",
+      "position": "Lead",
+      "availableHours": 40,
+      "picture": "",
+      "notes": "",
+      "isHidden": false
+    },
+    {
+      "id": "res-1790238449269",
+      "departmentId": "dep-1790238410162",
+      "name": "Ristovski",
+      "position": "CK Lead",
+      "availableHours": 40,
+      "picture": "",
+      "notes": "",
+      "isHidden": false
+    },
+    {
+      "id": "res-1790238540044",
+      "departmentId": "dep-1790238410162",
+      "name": "Tacic",
+      "position": "Medior Unity",
+      "availableHours": 40,
+      "picture": "",
+      "notes": "",
+      "isHidden": false
+    },
+    {
+      "id": "res-1790238554673",
+      "departmentId": "dep-1790238410162",
+      "name": "Mare",
+      "position": "Medior Unity",
+      "availableHours": 40,
+      "picture": "",
+      "notes": "",
+      "isHidden": false
+    },
+    {
+      "id": "res-1790239143316",
+      "departmentId": "dep-1",
+      "name": "AcaS",
+      "position": "Senior Unity Lead",
+      "availableHours": 40,
+      "picture": "",
+      "notes": "",
+      "isHidden": false
+    },
+    {
+      "id": "res-1790239162154",
+      "departmentId": "dep-1",
+      "name": "Shone",
+      "position": "Medior Unity",
+      "availableHours": 40,
+      "picture": "",
+      "notes": "",
+      "isHidden": false
+    },
+    {
+      "id": "res-1790239188805",
+      "departmentId": "dep-1",
+      "name": "AcaK",
+      "position": "Medior Unity",
+      "availableHours": 40,
+      "picture": "",
+      "notes": "",
+      "isHidden": false
+    },
+    {
+      "id": "res-1790243819574",
+      "departmentId": "dep-2",
+      "name": "Peca",
+      "position": "Senior Artist",
+      "availableHours": 40,
+      "picture": "",
+      "notes": "",
+      "isHidden": false
+    },
+    {
+      "id": "res-1790243836916",
+      "departmentId": "dep-2",
+      "name": "Ema",
+      "position": "Medior Artist",
+      "availableHours": 40,
+      "picture": "",
+      "notes": "",
+      "isHidden": false
+    },
+    {
+      "id": "res-1790244900549",
+      "departmentId": "dep-1790244882277",
+      "name": "Sretkovic",
+      "position": "Medior DevOps",
+      "availableHours": 40,
+      "picture": "",
+      "notes": "",
+      "isHidden": false
+    },
+    {
+      "id": "res-1790244917219",
+      "departmentId": "dep-1790244882277",
+      "name": "Tricko",
+      "position": "Junior DevOps",
+      "availableHours": 40,
+      "picture": "",
+      "notes": "",
+      "isHidden": false
+    },
+    {
+      "id": "res-1790377455199",
+      "departmentId": "dep-1790377447215",
+      "name": "Kaca",
+      "position": "",
+      "availableHours": 40,
+      "picture": "",
+      "notes": "",
+      "isHidden": false
+    },
+    {
+      "id": "res-1790377461158",
+      "departmentId": "dep-1790377447215",
+      "name": "Baki",
+      "position": "",
+      "availableHours": 40,
+      "picture": "",
+      "notes": "",
+      "isHidden": false
+    },
+    {
+      "id": "res-1790377469113",
+      "departmentId": "dep-1790377447215",
+      "name": "Rasa",
+      "position": "",
+      "availableHours": 40,
+      "picture": "",
+      "notes": "",
+      "isHidden": false
+    },
+    {
+      "id": "res-1790377513206",
+      "departmentId": "dep-1790377505944",
+      "name": "Bojana",
+      "position": "",
+      "availableHours": 40,
+      "picture": "",
+      "notes": "",
+      "isHidden": false
+    },
+    {
+      "id": "res-1790377521813",
+      "departmentId": "dep-1790377505944",
+      "name": "Marija",
+      "position": "",
+      "availableHours": 40,
+      "picture": "",
+      "notes": "",
+      "isHidden": false
+    },
+    {
+      "id": "res-1790377529969",
+      "departmentId": "dep-1790377505944",
+      "name": "Laza",
+      "position": "",
+      "availableHours": 40,
+      "picture": "",
+      "notes": "",
+      "isHidden": false
+    },
+    {
+      "id": "res-1790377535742",
+      "departmentId": "dep-1790377505944",
+      "name": "Pop",
+      "position": "",
+      "availableHours": 40,
+      "picture": "",
+      "notes": "",
+      "isHidden": false
+    }
+  ],
+  "priorityMarks": [
+    {
+      "id": "high",
+      "color": "bg-red-500",
+      "label": "High Priority"
+    },
+    {
+      "id": "mid",
+      "color": "bg-orange-500",
+      "label": "Mid Priority"
+    },
+    {
+      "id": "low",
+      "color": "bg-yellow-500",
+      "label": "Low Priority"
+    }
+  ]
+}
