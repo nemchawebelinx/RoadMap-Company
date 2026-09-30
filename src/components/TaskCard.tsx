@@ -141,13 +141,13 @@ export function TaskCard({
       {/* Hover edit buttons */}
       <div className="absolute top-0 right-2 hidden group-hover:flex items-center gap-0.5 h-full">
         <button
-          className="text-[9px] bg-black/40 hover:bg-black/60 text-white px-1 rounded"
+          className="text-[11px] bg-black/40 hover:bg-black/60 text-white px-1 rounded"
           onClick={(e) => { e.stopPropagation(); onEdit(task); }}
         >
           ✎
         </button>
         <button
-          className="text-[9px] bg-black/40 hover:bg-red-600/80 text-white px-1 rounded"
+          className="text-[11px] bg-black/40 hover:bg-red-600/80 text-white px-1 rounded"
           onClick={(e) => { e.stopPropagation(); onDelete(task.id); }}
         >
           ✕

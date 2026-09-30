@@ -6,6 +6,7 @@ import { Horizon, dayIndex } from "@/lib/layout";
 import { colorToHex, colorToRgba } from "@/lib/palette";
 import { parseDate, addDays, formatDate } from "@/lib/date";
 import { DepartmentModal } from "./DepartmentModal";
+import { EyeIcon, EyeOffIcon } from "./Icons";
 import { ResourceModal } from "./ResourceModal";
 import { TaskModal } from "./TaskModal";
 import { InfoModal } from "./InfoModal";
@@ -102,45 +103,47 @@ export function ResourcesView({ horizon, dayWidth, cardHeight, railWidth }: Reso
             {/* Department header */}
             <div className="flex" style={{ minHeight: 32 }}>
               <div
-                className="sticky left-0 z-20 shrink-0 bg-[var(--bg)] border-r border-b border-[var(--border)] flex items-center px-2 gap-1.5"
+                className="sticky left-0 z-20 shrink-0 bg-[var(--bg)] border-r border-b border-[var(--border)] flex flex-col justify-center px-2 py-1"
                 style={{ width: railWidth }}
               >
-                <span
-                  className="w-3 h-3 rounded-full shrink-0"
-                  style={{ backgroundColor: colorToHex(dept.color) }}
-                />
-                <span className="text-xs font-bold text-white uppercase tracking-wide truncate">
-                  {dept.name}
-                </span>
-                <span className="text-[9px] text-[var(--text-muted)]">{deptResources.length}</span>
-                <div className="flex gap-0.5 ml-auto">
+                <div className="flex items-center gap-1.5 mb-1">
+                  <span
+                    className="w-3 h-3 rounded-full shrink-0"
+                    style={{ backgroundColor: colorToHex(dept.color) }}
+                  />
+                  <span className="text-xs font-bold text-white uppercase tracking-wide truncate">
+                    {dept.name}
+                  </span>
+                  <span className="text-[9px] text-[var(--text-muted)]">{deptResources.length}</span>
+                </div>
+                <div className="flex gap-0.5 flex-wrap">
                   <button
-                    className="text-[9px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
+                    className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
                     onClick={() => setResModal({ open: true, resource: null, deptId: dept.id })}
                     title="Add Resource"
                   >+</button>
                   <button
-                    className="text-[9px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
+                    className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
                     onClick={() => setDeptModal({ open: true, dept })}
                     title="Edit"
                   >✎</button>
                   <button
-                    className="text-[9px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
+                    className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
                     onClick={() => reorderDepartment(dept.id, "up")}
                     title="Move Up"
                   >↑</button>
                   <button
-                    className="text-[9px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
+                    className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
                     onClick={() => reorderDepartment(dept.id, "down")}
                     title="Move Down"
                   >↓</button>
                   <button
-                    className="text-[9px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
+                    className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)] inline-flex items-center"
                     onClick={() => toggleDepartmentHidden(dept.id)}
                     title={dept.isHidden ? "Show" : "Hide"}
-                  >{dept.isHidden ? "👁" : "👁‍🗨"}</button>
+                  >{dept.isHidden ? <EyeIcon /> : <EyeOffIcon />}</button>
                   <button
-                    className="text-[9px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-red-600/50 rounded text-[var(--text-muted)]"
+                    className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-red-600/50 rounded text-[var(--text-muted)]"
                     onClick={() => { if (confirm(`Delete "${dept.name}"?`)) deleteDepartment(dept.id); }}
                     title="Delete"
                   >✕</button>
@@ -172,12 +175,12 @@ export function ResourcesView({ horizon, dayWidth, cardHeight, railWidth }: Reso
                     </span>
                     <div className="flex gap-0.5 mt-0.5">
                       <button
-                        className="text-[9px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
+                        className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
                         onClick={() => setResModal({ open: true, resource, deptId: dept.id })}
                         title="Edit"
                       >✎</button>
                       <button
-                        className="text-[9px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
+                        className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
                         onClick={() => setInfoModal({
                           open: true,
                           title: resource.name,
@@ -193,12 +196,12 @@ export function ResourcesView({ horizon, dayWidth, cardHeight, railWidth }: Reso
                         title="Info"
                       >ℹ</button>
                       <button
-                        className="text-[9px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
+                        className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)] inline-flex items-center"
                         onClick={() => toggleResourceHidden(resource.id)}
                         title="Hide"
-                      >👁‍🗨</button>
+                      ><EyeOffIcon /></button>
                       <button
-                        className="text-[9px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-red-600/50 rounded text-[var(--text-muted)]"
+                        className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-red-600/50 rounded text-[var(--text-muted)]"
                         onClick={() => { if (confirm(`Delete "${resource.name}"?`)) deleteResource(resource.id); }}
                         title="Delete"
                       >✕</button>

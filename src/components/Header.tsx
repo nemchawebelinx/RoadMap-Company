@@ -110,12 +110,12 @@ export function Header({ onCenterToday }: HeaderProps) {
         onClick={onCenterToday}
         className="px-2 py-1 rounded bg-[var(--bg-tertiary)] text-xs hover:bg-[#333]"
       >
-        📍 Today
+        <span className="text-[14px]">📍</span> Today
       </button>
 
       {/* Zoom controls */}
       <div className="flex items-center gap-1 ml-1">
-        <span className="text-[var(--text-muted)] text-xs">🔍</span>
+        <span className="text-[var(--text-muted)] text-[14px]">🔍</span>
         <span className="text-xs text-white">{zoomPercent}%</span>
         <select
           value={dayWidth}
@@ -128,8 +128,8 @@ export function Header({ onCenterToday }: HeaderProps) {
             </option>
           ))}
         </select>
-        <button onClick={handleZoomOut} className="px-1.5 py-0.5 bg-[var(--bg-tertiary)] rounded text-xs hover:bg-[#333]">−</button>
-        <button onClick={handleZoomIn} className="px-1.5 py-0.5 bg-[var(--bg-tertiary)] rounded text-xs hover:bg-[#333]">+</button>
+        <button onClick={handleZoomOut} className="px-1.5 py-0.5 bg-[var(--bg-tertiary)] rounded text-[14px] leading-none hover:bg-[#333]">−</button>
+        <button onClick={handleZoomIn} className="px-1.5 py-0.5 bg-[var(--bg-tertiary)] rounded text-[14px] leading-none hover:bg-[#333]">+</button>
       </div>
 
       {/* Card height */}
@@ -137,11 +137,11 @@ export function Header({ onCenterToday }: HeaderProps) {
         <span className="text-[var(--text-muted)] text-xs">{cardHeight}px</span>
         <button
           onClick={() => setCardHeight(Math.max(MIN_CARD_HEIGHT, cardHeight - 4))}
-          className="px-1.5 py-0.5 bg-[var(--bg-tertiary)] rounded text-xs hover:bg-[#333]"
+          className="px-1.5 py-0.5 bg-[var(--bg-tertiary)] rounded text-[14px] leading-none hover:bg-[#333]"
         >−</button>
         <button
           onClick={() => setCardHeight(Math.min(MAX_CARD_HEIGHT, cardHeight + 4))}
-          className="px-1.5 py-0.5 bg-[var(--bg-tertiary)] rounded text-xs hover:bg-[#333]"
+          className="px-1.5 py-0.5 bg-[var(--bg-tertiary)] rounded text-[14px] leading-none hover:bg-[#333]"
         >+</button>
       </div>
 
@@ -156,16 +156,16 @@ export function Header({ onCenterToday }: HeaderProps) {
 
       {/* Actions */}
       <button onClick={handleSave} className="px-2 py-1 rounded bg-[var(--bg-tertiary)] text-xs hover:bg-[#333]">
-        💾 Save
+        <span className="text-[14px]">💾</span> Save
       </button>
       <button onClick={resetState} className="px-2 py-1 rounded bg-[var(--bg-tertiary)] text-xs hover:bg-[#333]">
-        🔄 Reset
+        <span className="text-[14px]">🔄</span> Reset
       </button>
       <button onClick={() => fileRef.current?.click()} className="px-2 py-1 rounded bg-[var(--bg-tertiary)] text-xs hover:bg-[#333]">
-        📥 Import
+        <span className="text-[14px]">📥</span> Import
       </button>
       <button onClick={handleExport} className="px-2 py-1 rounded bg-[var(--bg-tertiary)] text-xs hover:bg-[#333]">
-        📤 Export
+        <span className="text-[14px]">📤</span> Export
       </button>
       <input ref={fileRef} type="file" accept=".json" onChange={handleImport} className="hidden" />
     </header>

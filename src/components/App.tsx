@@ -88,7 +88,7 @@ export function App() {
               </div>
               <div className="flex items-center gap-0.5">
                 <button
-                  className="text-[9px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
+                  className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
                   onClick={() => setMilestoneModal({ open: true, milestone: null })}
                   title="Add Milestone"
                 >+</button>

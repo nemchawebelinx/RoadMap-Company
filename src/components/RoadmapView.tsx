@@ -4,6 +4,7 @@ import { useStore } from "@/lib/store";
 import { Layer, Task } from "@/lib/types";
 import { Horizon, stackTasks } from "@/lib/layout";
 import { colorToHex } from "@/lib/palette";
+import { EyeIcon, EyeOffIcon } from "./Icons";
 import { TaskCard } from "./TaskCard";
 import { LayerModal } from "./LayerModal";
 import { TaskModal } from "./TaskModal";
@@ -77,37 +78,37 @@ export function RoadmapView({ horizon, dayWidth, cardHeight, railWidth }: Roadma
               </div>
               <div className="flex items-center gap-0.5 flex-wrap">
                 <button
-                  className="text-[9px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
+                  className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
                   onClick={() => setTaskModal({ open: true, task: null, layerId: layer.id })}
                   title="Add Task"
                 >+</button>
                 <button
-                  className="text-[9px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
+                  className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
                   onClick={() => setLayerModal({ open: true, layer })}
                   title="Edit"
                 >✎</button>
                 <button
-                  className="text-[9px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
+                  className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
                   onClick={() => setInfoModal({ open: true, title: layer.name, info: { Name: layer.name, Color: layer.color, Description: layer.description || "(none)", Tasks: taskCount, Hidden: layer.isHidden, Order: layer.order } })}
                   title="Info"
                 >ℹ</button>
                 <button
-                  className="text-[9px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
+                  className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
                   onClick={() => reorderLayer(layer.id, "up")}
                   title="Move Up"
                 >↑</button>
                 <button
-                  className="text-[9px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
+                  className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
                   onClick={() => reorderLayer(layer.id, "down")}
                   title="Move Down"
                 >↓</button>
                 <button
-                  className="text-[9px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
+                  className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)] inline-flex items-center"
                   onClick={() => toggleLayerHidden(layer.id)}
                   title={layer.isHidden ? "Show" : "Hide"}
-                >{layer.isHidden ? "👁" : "👁‍🗨"}</button>
+                >{layer.isHidden ? <EyeIcon /> : <EyeOffIcon />}</button>
                 <button
-                  className="text-[9px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-red-600/50 rounded text-[var(--text-muted)]"
+                  className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-red-600/50 rounded text-[var(--text-muted)]"
                   onClick={() => { if (confirm(`Delete layer "${layer.name}"?`)) deleteLayer(layer.id); }}
                   title="Delete"
                 >✕</button>

@@ -204,7 +204,7 @@ export function TaskModal({ open, onClose, onSave, initial, defaultLayerId }: Ta
                   <span className="text-[var(--text-muted)]">
                     {formatDate(assigneeStart)} → {formatDate(assigneeEnd)}
                   </span>
-                  <button onClick={() => removeAssignee(idx)} className="text-red-400 hover:text-red-300 ml-auto">✕</button>
+                  <button onClick={() => removeAssignee(idx)} className="text-red-400 hover:text-red-300 ml-auto text-[14px]">✕</button>
                 </div>
               );
             })}
