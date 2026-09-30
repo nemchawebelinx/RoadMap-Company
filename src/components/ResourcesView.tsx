@@ -94,9 +94,9 @@ export function ResourcesView({ horizon, dayWidth, cardHeight, railWidth }: Reso
   return (
     <>
       {sortedDepts.map((dept) => {
-        const deptResources = resources
-          .filter((r) => r.departmentId === dept.id)
-          .filter((r) => !r.isHidden);
+        const allDeptResources = resources.filter((r) => r.departmentId === dept.id);
+        const deptResources = allDeptResources.filter((r) => !r.isHidden);
+        const hiddenResources = allDeptResources.filter((r) => r.isHidden);
 
         return (
           <div key={dept.id}>
@@ -288,6 +288,32 @@ export function ResourcesView({ horizon, dayWidth, cardHeight, railWidth }: Reso
                 </div>
               );
             })}
+
+            {/* Hidden resources in department – click to show again */}
+            {hiddenResources.length > 0 && (
+              <div className="flex" style={{ minHeight: 28 }}>
+                <div
+                  className="sticky left-0 z-20 shrink-0 bg-[var(--bg)] border-r border-b border-[var(--border)] flex flex-wrap items-center gap-1 px-2 py-1"
+                  style={{ width: railWidth, minHeight: 28 }}
+                >
+                  {hiddenResources.map((r) => (
+                    <button
+                      key={r.id}
+                      className="text-[9px] px-1.5 py-0.5 bg-[var(--bg-tertiary)] rounded text-[var(--text-muted)] hover:text-white inline-flex items-center gap-1 max-w-full"
+                      onClick={() => toggleResourceHidden(r.id)}
+                      title={`Show "${r.name}"`}
+                    >
+                      <EyeIcon size={10} />
+                      <span className="truncate">{r.name}</span>
+                    </button>
+                  ))}
+                </div>
+                <div
+                  className="border-b border-[var(--border)]"
+                  style={{ width: horizon.totalDays * dayWidth, minHeight: 28 }}
+                />
+              </div>
+            )}
           </div>
         );
       })}
@@ -309,17 +335,23 @@ export function ResourcesView({ horizon, dayWidth, cardHeight, railWidth }: Reso
 
       {/* Hidden departments list */}
       {hiddenDepts.length > 0 && (
-        <div className="flex flex-wrap gap-1 px-2 py-2">
-          {hiddenDepts.map((d) => (
-            <button
-              key={d.id}
-              className="text-[9px] px-2 py-0.5 bg-[var(--bg-tertiary)] rounded text-[var(--text-muted)] hover:text-white flex items-center gap-1"
-              onClick={() => toggleDepartmentHidden(d.id)}
-            >
-              <span className="w-2 h-2 rounded-full" style={{ backgroundColor: colorToHex(d.color) }} />
-              {d.name} · Hidden
-            </button>
-          ))}
+        <div className="flex">
+          <div
+            className="sticky left-0 z-20 shrink-0 bg-[var(--bg)] flex flex-wrap gap-1 px-2 py-2"
+            style={{ width: railWidth }}
+          >
+            {hiddenDepts.map((d) => (
+              <button
+                key={d.id}
+                className="text-[9px] px-2 py-0.5 bg-[var(--bg-tertiary)] rounded text-[var(--text-muted)] hover:text-white flex items-center gap-1 max-w-full"
+                onClick={() => toggleDepartmentHidden(d.id)}
+                title={`Show "${d.name}"`}
+              >
+                <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: colorToHex(d.color) }} />
+                <span className="truncate">{d.name} · Hidden</span>
+              </button>
+            ))}
+          </div>
         </div>
       )}
 
