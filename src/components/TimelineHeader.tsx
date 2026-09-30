@@ -8,6 +8,11 @@ interface TimelineHeaderProps {
   dayWidth: number;
 }
 
+const MONTH_ROW_HEIGHT = 24;
+const DAY_ROW_HEIGHT = 20;
+// Rows pinned below the header must use this as their sticky top offset.
+export const TIMELINE_HEADER_HEIGHT = MONTH_ROW_HEIGHT + DAY_ROW_HEIGHT;
+
 export function TimelineHeader({ horizon, dayWidth }: TimelineHeaderProps) {
   // Generate months
   const months: { label: string; startIdx: number; days: number }[] = [];
@@ -32,9 +37,9 @@ export function TimelineHeader({ horizon, dayWidth }: TimelineHeaderProps) {
   }
 
   return (
-    <div className="sticky top-0 z-30 bg-[var(--bg)]">
+    <div className="shrink-0 bg-[var(--bg)]">
       {/* Month row */}
-      <div className="relative h-6 border-b border-[var(--border)]" style={{ width: horizon.totalDays * dayWidth }}>
+      <div className="relative border-b border-[var(--border)]" style={{ height: MONTH_ROW_HEIGHT, width: horizon.totalDays * dayWidth }}>
         {months.map((m, i) => (
           <div
             key={i}
@@ -46,7 +51,7 @@ export function TimelineHeader({ horizon, dayWidth }: TimelineHeaderProps) {
         ))}
       </div>
       {/* Day row */}
-      <div className="relative h-5 border-b border-[var(--border)]" style={{ width: horizon.totalDays * dayWidth }}>
+      <div className="relative border-b border-[var(--border)]" style={{ height: DAY_ROW_HEIGHT, width: horizon.totalDays * dayWidth }}>
         {days.map((d) => (
           <div
             key={d.idx}

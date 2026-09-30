@@ -2,8 +2,8 @@
 import React, { useRef, useEffect, useState, useMemo } from "react";
 import { useStore } from "@/lib/store";
 import { computeHorizon, todayPixelOffset } from "@/lib/layout";
-import { getMilestoneBandHeight, MilestoneBand } from "./MilestoneBand";
-import { TimelineHeader } from "./TimelineHeader";
+import { getMilestoneBandHeight, MilestoneBand, MilestoneGuides } from "./MilestoneBand";
+import { TIMELINE_HEADER_HEIGHT, TimelineHeader } from "./TimelineHeader";
 import { TimelineGrid } from "./TimelineGrid";
 import { RoadmapView } from "./RoadmapView";
 import { ResourcesView } from "./ResourcesView";
@@ -60,46 +60,64 @@ export function App() {
     <div className="h-screen flex flex-col overflow-hidden">
       <Header onCenterToday={centerToday} />
 
-      {/* Milestone + add button bar */}
-      <div className="flex items-center gap-1 px-2 py-1 border-b border-[var(--border)] bg-[var(--bg-secondary)] shrink-0">
-        <span className="text-[10px] text-[var(--text-muted)] font-medium uppercase tracking-wider">
-          Milestones
-        </span>
-        <span className="text-[9px] text-[var(--text-muted)]">{milestones.length}</span>
-        <button
-          className="text-[9px] px-1.5 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)] ml-1"
-          onClick={() => setMilestoneModal({ open: true, milestone: null })}
-        >
-          +
-        </button>
-      </div>
-
       {/* Main scroll area */}
       <div ref={scrollRef} className="flex-1 overflow-auto relative">
         <div style={{ width: totalWidth + RAIL_WIDTH, minHeight: "100%" }}>
-          {/* Sticky left rail column takes up RAIL_WIDTH but timeline starts after it */}
-          <div style={{ paddingLeft: RAIL_WIDTH }}>
-            {/* Timeline header */}
+          {/* Timeline header row: empty rail corner + month/day scale */}
+          <div className="sticky top-0 z-30 flex bg-[var(--bg)]">
+            <div
+              className="sticky left-0 z-40 shrink-0 border-r border-b border-[var(--border)] bg-[var(--bg)]"
+              style={{ width: RAIL_WIDTH }}
+            />
             <TimelineHeader horizon={horizon} dayWidth={effectiveDayWidth} />
+          </div>
 
-            {/* Milestone band */}
-            <div className="relative" style={{ width: totalWidth }}>
+          {/* Milestone row: always the first row, pinned directly under the timeline */}
+          <div
+            className="sticky z-[25] flex"
+            style={{ top: TIMELINE_HEADER_HEIGHT, minHeight: milestoneBandHeight }}
+          >
+            <div
+              className="sticky left-0 z-20 shrink-0 border-r border-b border-[var(--border)] bg-[var(--bg)] flex flex-col justify-center px-2 py-1"
+              style={{ width: RAIL_WIDTH, minHeight: milestoneBandHeight }}
+            >
+              <div className="flex items-center gap-1.5 mb-1">
+                <span className="text-[10px] shrink-0">⚑</span>
+                <span className="text-xs font-medium text-white truncate">Milestones</span>
+                <span className="text-[9px] text-[var(--text-muted)]">{milestones.length}</span>
+              </div>
+              <div className="flex items-center gap-0.5">
+                <button
+                  className="text-[9px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)]"
+                  onClick={() => setMilestoneModal({ open: true, milestone: null })}
+                  title="Add Milestone"
+                >+</button>
+              </div>
+            </div>
+            <div
+              className="relative border-b border-[var(--border)] bg-[var(--bg)]"
+              style={{ width: totalWidth, minHeight: milestoneBandHeight }}
+            >
               <MilestoneBand
                 milestones={milestones}
                 horizon={horizon}
                 dayWidth={effectiveDayWidth}
-                totalHeight={3000}
                 onClickMilestone={(m) => setMilestoneModal({ open: true, milestone: m })}
-                onAddMilestone={() => setMilestoneModal({ open: true, milestone: null })}
               />
             </div>
           </div>
 
           {/* Content area with grid */}
           <div className="relative">
-            {/* Grid background */}
+            {/* Grid background + milestone guide lines */}
             <div style={{ position: "absolute", left: RAIL_WIDTH, top: 0, width: totalWidth }}>
               <TimelineGrid horizon={horizon} dayWidth={effectiveDayWidth} height={5000} />
+              <MilestoneGuides
+                milestones={milestones}
+                horizon={horizon}
+                dayWidth={effectiveDayWidth}
+                height={5000}
+              />
             </div>
 
             {/* View content */}
