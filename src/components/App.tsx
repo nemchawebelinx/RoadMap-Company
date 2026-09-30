@@ -44,12 +44,31 @@ export function App() {
     scrollRef.current.scrollLeft = todayPx - viewportWidth / 2 + RAIL_WIDTH / 2;
   };
 
-  // Center today on mount
+  // Center today on mount only – re-centering on every horizon change would fight
+  // the user while dragging a task, since each drag update recomputes the horizon.
   useEffect(() => {
-    if (mounted) {
-      setTimeout(centerToday, 100);
-    }
-  }, [mounted, horizon, effectiveDayWidth]);
+    if (!mounted) return;
+    const timer = setTimeout(centerToday, 100);
+    return () => clearTimeout(timer);
+  }, [mounted]);
+
+  // Keep the dates under the viewport in place when the horizon start shifts
+  // (dragging the earliest task) or the day width changes (zooming).
+  const anchorRef = useRef({ startMs: horizon.start.getTime(), dayWidth: effectiveDayWidth });
+  const horizonStartMs = horizon.start.getTime();
+  useEffect(() => {
+    const el = scrollRef.current;
+    const prev = anchorRef.current;
+    anchorRef.current = { startMs: horizonStartMs, dayWidth: effectiveDayWidth };
+    if (!el) return;
+    if (prev.startMs === horizonStartMs && prev.dayWidth === effectiveDayWidth) return;
+
+    const halfViewport = el.clientWidth / 2;
+    const centerDay = (el.scrollLeft + halfViewport - RAIL_WIDTH) / prev.dayWidth;
+    const shiftDays = Math.round((horizonStartMs - prev.startMs) / 86400000);
+    el.scrollLeft =
+      (centerDay - shiftDays) * effectiveDayWidth + RAIL_WIDTH - halfViewport;
+  }, [horizonStartMs, effectiveDayWidth]);
 
   if (!mounted) return null;
 
