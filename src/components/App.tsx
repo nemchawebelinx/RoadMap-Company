@@ -143,9 +143,17 @@ export function App() {
 
           {/* Content area with grid */}
           <div className="relative">
-            {/* Grid background + milestone guide lines */}
+            {/* Grid background */}
             <div style={{ position: "absolute", left: RAIL_WIDTH, top: 0, width: totalWidth }}>
               <TimelineGrid horizon={horizon} dayWidth={effectiveDayWidth} height={5000} />
+            </div>
+
+            {/* Guide lines draw over the task cards. They share the sticky rails'
+                z-index and come first, so the rails still cover them when scrolled. */}
+            <div
+              className="z-20"
+              style={{ position: "absolute", left: RAIL_WIDTH, top: 0, width: totalWidth }}
+            >
               <MilestoneGuides
                 milestones={milestones}
                 horizon={horizon}
@@ -154,8 +162,9 @@ export function App() {
               />
             </div>
 
-            {/* View content */}
-            <div className="relative z-10">
+            {/* View content – must stay z-auto so the rails inside it are not
+                trapped below the guide overlay. */}
+            <div className="relative">
               {viewMode === "roadmap" ? (
                 <RoadmapView
                   horizon={horizon}

@@ -19,6 +19,7 @@ interface MilestoneGuidesProps {
 }
 
 const FLAG_ROW_HEIGHT = 22;
+const GUIDE_WIDTH = 2;
 
 function flagColor(f: { isToday?: boolean; milestone: Milestone | null }): string {
   return f.isToday ? "#22c55e" : f.milestone ? colorToHex(f.milestone.color) : "#666";
@@ -77,10 +78,10 @@ export function MilestoneGuides({ milestones, horizon, dayWidth, height }: Miles
           className="absolute top-0"
           style={{
             left: f.x,
-            width: 1,
+            width: GUIDE_WIDTH,
             height: "100%",
-            borderLeft: `1px dashed ${flagColor(f)}`,
-            opacity: f.isToday ? 0.6 : 0.3,
+            borderLeft: `${GUIDE_WIDTH}px dashed ${flagColor(f)}`,
+            opacity: f.isToday ? 0.9 : 0.6,
           }}
         />
       ))}
