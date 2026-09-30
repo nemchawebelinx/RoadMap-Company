@@ -21,9 +21,11 @@ interface AppState extends ProjectState {
   cardHeight: number;
   zoomPercent: number;
   savedAt: string | null;
+  hydrated: boolean;
 
   // Actions
   setViewMode: (v: ViewMode) => void;
+  hydrateFromRemote: (state: ProjectState | null) => void;
   setDayWidth: (w: number) => void;
   setCardHeight: (h: number) => void;
   setZoomPercent: (p: number) => void;
@@ -120,8 +122,21 @@ export const useStore = create<AppState>((set, get) => {
     cardHeight: DEFAULT_CARD_HEIGHT,
     zoomPercent: 100,
     savedAt: null,
+    hydrated: false,
 
     setViewMode: (v) => set({ viewMode: v }),
+
+    // Firestore is the shared source of truth, so it wins over the localStorage
+    // copy. A null argument means Firebase is unconfigured or the fetch failed –
+    // keep whatever localStorage gave us and just unblock the UI.
+    hydrateFromRemote: (state) => {
+      if (!state) {
+        set({ hydrated: true });
+        return;
+      }
+      set({ ...state, hydrated: true });
+      persist({ ...get(), ...state });
+    },
     setDayWidth: (w) => set({ dayWidth: w }),
     setCardHeight: (h) => set({ cardHeight: h }),
     setZoomPercent: (p) => set({ zoomPercent: p }),

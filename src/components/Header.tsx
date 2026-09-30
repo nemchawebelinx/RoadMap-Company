@@ -20,6 +20,7 @@ export function Header({ onCenterToday }: HeaderProps) {
   const zoomPercent = useStore((s) => s.zoomPercent);
   const setZoomPercent = useStore((s) => s.setZoomPercent);
   const savedAt = useStore((s) => s.savedAt);
+  const hydrated = useStore((s) => s.hydrated);
   const importState = useStore((s) => s.importState);
   const resetState = useStore((s) => s.resetState);
   const getExportData = useStore((s) => s.getExportData);
@@ -64,6 +65,9 @@ export function Header({ onCenterToday }: HeaderProps) {
   };
 
   const handleSave = async () => {
+    // Saving before the Firestore load lands would push the empty initial state
+    // over the real document.
+    if (!hydrated) return;
     const data = getExportData();
     const at = new Date().toLocaleTimeString("en-GB", { hour12: false });
     localStorage.setItem("webelinx-roadmap-state", JSON.stringify(data));
@@ -165,7 +169,9 @@ export function Header({ onCenterToday }: HeaderProps) {
       <div className="flex-1" />
 
       {/* Save indicator */}
-      {sync.status === "saving" ? (
+      {!hydrated ? (
+        <span className="text-xs text-[var(--text-muted)] mr-2">⏳ Loading from Firestore…</span>
+      ) : sync.status === "saving" ? (
         <span className="text-xs text-[var(--text-muted)] mr-2">⏳ Saving to Firestore…</span>
       ) : sync.status === "synced" ? (
         <span className="text-xs text-green-400 mr-2">✓ Saved to roadmap-company {sync.at}</span>
@@ -180,7 +186,7 @@ export function Header({ onCenterToday }: HeaderProps) {
       {/* Actions */}
       <button
         onClick={handleSave}
-        disabled={sync.status === "saving"}
+        disabled={!hydrated || sync.status === "saving"}
         className="px-2 py-1 rounded bg-[var(--bg-tertiary)] text-xs hover:bg-[#333] disabled:opacity-50"
       >
         <span className="text-[14px]">💾</span> Save

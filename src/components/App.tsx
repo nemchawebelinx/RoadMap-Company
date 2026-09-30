@@ -10,6 +10,7 @@ import { ResourcesView } from "./ResourcesView";
 import { Header } from "./Header";
 import { MilestoneModal } from "./MilestoneModal";
 import { Milestone } from "@/lib/types";
+import { loadFromFirestore } from "@/lib/firestore";
 
 const RAIL_WIDTH = 160;
 
@@ -24,6 +25,8 @@ export function App() {
   const addMilestone = useStore((s) => s.addMilestone);
   const updateMilestone = useStore((s) => s.updateMilestone);
   const deleteMilestone = useStore((s) => s.deleteMilestone);
+  const hydrated = useStore((s) => s.hydrated);
+  const hydrateFromRemote = useStore((s) => s.hydrateFromRemote);
 
   const effectiveDayWidth = dayWidth * (zoomPercent / 100);
 
@@ -37,6 +40,16 @@ export function App() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
+  useEffect(() => {
+    let cancelled = false;
+    loadFromFirestore().then((remote) => {
+      if (!cancelled) hydrateFromRemote(remote);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [hydrateFromRemote]);
+
   const centerToday = () => {
     if (!scrollRef.current) return;
     const todayPx = todayPixelOffset(horizon, effectiveDayWidth);
@@ -46,11 +59,13 @@ export function App() {
 
   // Center today on mount only – re-centering on every horizon change would fight
   // the user while dragging a task, since each drag update recomputes the horizon.
+  // Wait for hydration, otherwise we would center against the empty horizon and
+  // end up scrolled to the wrong date once the real tasks arrive.
   useEffect(() => {
-    if (!mounted) return;
+    if (!mounted || !hydrated) return;
     const timer = setTimeout(centerToday, 100);
     return () => clearTimeout(timer);
-  }, [mounted]);
+  }, [mounted, hydrated]);
 
   // Keep the dates under the viewport in place when the horizon start shifts
   // (dragging the earliest task) or the day width changes (zooming).
