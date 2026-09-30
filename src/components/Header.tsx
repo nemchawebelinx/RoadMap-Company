@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useStore } from "@/lib/store";
 import { ViewMode, ZOOM_PRESETS, MIN_CARD_HEIGHT, MAX_CARD_HEIGHT } from "@/lib/types";
 import { formatDate } from "@/lib/date";
@@ -24,6 +24,14 @@ export function Header({ onCenterToday }: HeaderProps) {
   const resetState = useStore((s) => s.resetState);
   const getExportData = useStore((s) => s.getExportData);
   const fileRef = useRef<HTMLInputElement>(null);
+
+  const [sync, setSync] = useState<
+    | { status: "idle" }
+    | { status: "saving" }
+    | { status: "local" }
+    | { status: "synced"; at: string }
+    | { status: "error"; error: string }
+  >({ status: "idle" });
 
   const effectiveDayWidth = dayWidth * (zoomPercent / 100);
 
@@ -57,12 +65,21 @@ export function Header({ onCenterToday }: HeaderProps) {
 
   const handleSave = async () => {
     const data = getExportData();
+    const at = new Date().toLocaleTimeString("en-GB", { hour12: false });
     localStorage.setItem("webelinx-roadmap-state", JSON.stringify(data));
-    if (isFirebaseConfigured()) {
-      const ok = await saveToFirestore(data);
-      if (!ok) alert("Firestore save failed – saved to localStorage only.");
+    useStore.setState({ savedAt: at });
+
+    if (!isFirebaseConfigured()) {
+      setSync({ status: "local" });
+      return;
     }
-    useStore.setState({ savedAt: new Date().toLocaleTimeString("en-GB", { hour12: false }) });
+    setSync({ status: "saving" });
+    const result = await saveToFirestore(data);
+    setSync(
+      result.ok
+        ? { status: "synced", at: new Date().toLocaleTimeString("en-GB", { hour12: false }) }
+        : { status: "error", error: result.error }
+    );
   };
 
   const handleZoomIn = () => {
@@ -148,14 +165,24 @@ export function Header({ onCenterToday }: HeaderProps) {
       <div className="flex-1" />
 
       {/* Save indicator */}
-      {savedAt && (
-        <span className="text-xs text-green-400 mr-2">
-          ✓ Saved to Storage {savedAt}
+      {sync.status === "saving" ? (
+        <span className="text-xs text-[var(--text-muted)] mr-2">⏳ Saving to Firestore…</span>
+      ) : sync.status === "synced" ? (
+        <span className="text-xs text-green-400 mr-2">✓ Saved to roadmap-company {sync.at}</span>
+      ) : sync.status === "error" ? (
+        <span className="text-xs text-red-400 mr-2 max-w-[340px] truncate" title={sync.error}>
+          ⚠ Firestore: {sync.error} (saved locally)
         </span>
-      )}
+      ) : savedAt ? (
+        <span className="text-xs text-green-400 mr-2">✓ Saved to Storage {savedAt}</span>
+      ) : null}
 
       {/* Actions */}
-      <button onClick={handleSave} className="px-2 py-1 rounded bg-[var(--bg-tertiary)] text-xs hover:bg-[#333]">
+      <button
+        onClick={handleSave}
+        disabled={sync.status === "saving"}
+        className="px-2 py-1 rounded bg-[var(--bg-tertiary)] text-xs hover:bg-[#333] disabled:opacity-50"
+      >
         <span className="text-[14px]">💾</span> Save
       </button>
       <button onClick={resetState} className="px-2 py-1 rounded bg-[var(--bg-tertiary)] text-xs hover:bg-[#333]">
