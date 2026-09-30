@@ -52,7 +52,6 @@ export function ResourcesView({ horizon, dayWidth, cardHeight, railWidth }: Reso
 
   const visibleDepts = departments.filter((d) => !d.isHidden).sort((a, b) => a.order - b.order);
   const hiddenDepts = departments.filter((d) => d.isHidden).sort((a, b) => a.order - b.order);
-  const sortedDepts = [...visibleDepts, ...hiddenDepts];
 
   const getResourceBars = (resource: Resource): ResourceBar[] => {
     const bars: ResourceBar[] = [];
@@ -93,7 +92,7 @@ export function ResourcesView({ horizon, dayWidth, cardHeight, railWidth }: Reso
 
   return (
     <>
-      {sortedDepts.map((dept) => {
+      {visibleDepts.map((dept) => {
         const allDeptResources = resources.filter((r) => r.departmentId === dept.id);
         const deptResources = allDeptResources.filter((r) => !r.isHidden);
         const hiddenResources = allDeptResources.filter((r) => r.isHidden);
@@ -140,8 +139,8 @@ export function ResourcesView({ horizon, dayWidth, cardHeight, railWidth }: Reso
                   <button
                     className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-[#333] rounded text-[var(--text-muted)] inline-flex items-center"
                     onClick={() => toggleDepartmentHidden(dept.id)}
-                    title={dept.isHidden ? "Show" : "Hide"}
-                  >{dept.isHidden ? <EyeIcon /> : <EyeOffIcon />}</button>
+                    title="Hide"
+                  ><EyeOffIcon /></button>
                   <button
                     className="text-[11px] px-1 py-0.5 bg-[var(--bg-tertiary)] hover:bg-red-600/50 rounded text-[var(--text-muted)]"
                     onClick={() => { if (confirm(`Delete "${dept.name}"?`)) deleteDepartment(dept.id); }}
@@ -214,7 +213,6 @@ export function ResourcesView({ horizon, dayWidth, cardHeight, railWidth }: Reso
                     style={{
                       width: horizon.totalDays * dayWidth,
                       minHeight: rowHeight,
-                      opacity: dept.isHidden ? 0.4 : 1,
                     }}
                   >
                     {stacked.map(({ bar, row }, idx) => {
@@ -318,6 +316,33 @@ export function ResourcesView({ horizon, dayWidth, cardHeight, railWidth }: Reso
         );
       })}
 
+      {/* Hidden departments – click to show again */}
+      {hiddenDepts.length > 0 && (
+        <div className="flex" style={{ minHeight: 28 }}>
+          <div
+            className="sticky left-0 z-20 shrink-0 bg-[var(--bg)] border-r border-b border-[var(--border)] flex flex-wrap items-center gap-1 px-2 py-1"
+            style={{ width: railWidth, minHeight: 28 }}
+          >
+            {hiddenDepts.map((d) => (
+              <button
+                key={d.id}
+                className="text-[9px] px-1.5 py-0.5 bg-[var(--bg-tertiary)] rounded text-[var(--text-muted)] hover:text-white inline-flex items-center gap-1 max-w-full"
+                onClick={() => toggleDepartmentHidden(d.id)}
+                title={`Show "${d.name}"`}
+              >
+                <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: colorToHex(d.color) }} />
+                <EyeIcon size={10} />
+                <span className="truncate">{d.name}</span>
+              </button>
+            ))}
+          </div>
+          <div
+            className="border-b border-[var(--border)]"
+            style={{ width: horizon.totalDays * dayWidth, minHeight: 28 }}
+          />
+        </div>
+      )}
+
       {/* Add Department */}
       <div className="flex" style={{ minHeight: 36 }}>
         <div
@@ -332,28 +357,6 @@ export function ResourcesView({ horizon, dayWidth, cardHeight, railWidth }: Reso
           </button>
         </div>
       </div>
-
-      {/* Hidden departments list */}
-      {hiddenDepts.length > 0 && (
-        <div className="flex">
-          <div
-            className="sticky left-0 z-20 shrink-0 bg-[var(--bg)] flex flex-wrap gap-1 px-2 py-2"
-            style={{ width: railWidth }}
-          >
-            {hiddenDepts.map((d) => (
-              <button
-                key={d.id}
-                className="text-[9px] px-2 py-0.5 bg-[var(--bg-tertiary)] rounded text-[var(--text-muted)] hover:text-white flex items-center gap-1 max-w-full"
-                onClick={() => toggleDepartmentHidden(d.id)}
-                title={`Show "${d.name}"`}
-              >
-                <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: colorToHex(d.color) }} />
-                <span className="truncate">{d.name} · Hidden</span>
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* Modals */}
       <DepartmentModal
