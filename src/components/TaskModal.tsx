@@ -4,7 +4,7 @@ import { Modal, Field, inputClass, btnPrimary, btnSecondary } from "./Modal";
 import { Task, TaskAssignee, Resource, Layer } from "@/lib/types";
 import { useStore } from "@/lib/store";
 import { colorToHex } from "@/lib/palette";
-import { parseDate, addDays, formatDate } from "@/lib/date";
+import { parseDate, addDays, formatDate, diffDays } from "@/lib/date";
 
 interface TaskModalProps {
   open: boolean;
@@ -88,6 +88,17 @@ export function TaskModal({ open, onClose, onSave, initial, defaultLayerId }: Ta
     onClose();
   };
 
+  const dueDate = formatDate(addDays(parseDate(startDate), Math.max(1, durationDays) - 1));
+
+  const handleDurationChange = (days: number) => {
+    setDurationDays(Math.max(1, days));
+  };
+
+  const handleDueDateChange = (value: string) => {
+    if (!value) return;
+    setDurationDays(Math.max(1, diffDays(parseDate(value), parseDate(startDate)) + 1));
+  };
+
   const taskLayer = layers.find((l) => l.id === layerId);
 
   return (
@@ -115,13 +126,22 @@ export function TaskModal({ open, onClose, onSave, initial, defaultLayerId }: Ta
             onChange={(e) => setStartDate(e.target.value)}
           />
         </Field>
+        <Field label="Due Date">
+          <input
+            type="date"
+            className={inputClass}
+            min={startDate}
+            value={dueDate}
+            onChange={(e) => handleDueDateChange(e.target.value)}
+          />
+        </Field>
         <Field label="Duration (days)">
           <input
             type="number"
             min={1}
             className={inputClass}
             value={durationDays}
-            onChange={(e) => setDurationDays(Math.max(1, Number(e.target.value)))}
+            onChange={(e) => handleDurationChange(Number(e.target.value))}
           />
         </Field>
         <Field label="Priority">
