@@ -99,7 +99,9 @@ export function TaskCard({
         height: cardHeight,
         backgroundColor: bgColor,
         opacity: 0.9,
-        border: "1px solid rgba(0,0,0,0.2)",
+        border: task.hasOutline
+          ? `2px solid ${colorToHex(task.outlineColor)}`
+          : "1px solid rgba(0,0,0,0.2)",
       }}
       onPointerDown={(e) => handlePointerDown(e, "move")}
       onDoubleClick={() => onEdit(task)}
@@ -110,7 +112,7 @@ export function TaskCard({
           {/* Priority dot */}
           {priorityMark && (
             <span
-              className="w-2.5 h-2.5 rounded-full shrink-0"
+              className="w-2.5 h-2.5 rounded-full shrink-0 ring-1 ring-white"
               style={{ backgroundColor: colorToHex(priorityMark.color) }}
             />
           )}

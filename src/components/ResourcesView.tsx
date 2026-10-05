@@ -237,7 +237,9 @@ export function ResourcesView({ horizon, dayWidth, cardHeight, railWidth }: Reso
                             top: GAP + row * (cardHeight + GAP),
                             width: pxWidth,
                             height: cardHeight,
-                            border: "1px solid rgba(0,0,0,0.2)",
+                            border: bar.task.hasOutline
+                              ? `2px solid ${colorToHex(bar.task.outlineColor)}`
+                              : "1px solid rgba(0,0,0,0.2)",
                           }}
                           onDoubleClick={() => setTaskModal({ open: true, task: bar.task, layerId: bar.task.layerId })}
                         >

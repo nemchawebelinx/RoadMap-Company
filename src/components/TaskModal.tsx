@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, Field, inputClass, btnPrimary, btnSecondary } from "./Modal";
 import { Task, TaskAssignee, Resource, Layer } from "@/lib/types";
 import { useStore } from "@/lib/store";
+import { ColorPicker } from "./ColorPicker";
 import { colorToHex } from "@/lib/palette";
 import { parseDate, addDays, formatDate, diffDays } from "@/lib/date";
 
@@ -24,6 +25,8 @@ export function TaskModal({ open, onClose, onSave, initial, defaultLayerId }: Ta
   const [startDate, setStartDate] = useState(formatDate(new Date()));
   const [durationDays, setDurationDays] = useState(7);
   const [priority, setPriority] = useState("mid");
+  const [hasOutline, setHasOutline] = useState(false);
+  const [outlineColor, setOutlineColor] = useState("white");
   const [layerId, setLayerId] = useState(defaultLayerId || "");
   const [assignees, setAssignees] = useState<TaskAssignee[]>([]);
 
@@ -34,6 +37,8 @@ export function TaskModal({ open, onClose, onSave, initial, defaultLayerId }: Ta
       setStartDate(initial.startDate);
       setDurationDays(initial.durationDays);
       setPriority(initial.priority);
+      setHasOutline(initial.hasOutline);
+      setOutlineColor(initial.outlineColor);
       setLayerId(initial.layerId);
       setAssignees([...initial.assignees]);
     } else {
@@ -42,6 +47,8 @@ export function TaskModal({ open, onClose, onSave, initial, defaultLayerId }: Ta
       setStartDate(formatDate(new Date()));
       setDurationDays(7);
       setPriority("mid");
+      setHasOutline(false);
+      setOutlineColor("white");
       setLayerId(defaultLayerId || layers[0]?.id || "");
       setAssignees([]);
     }
@@ -81,6 +88,8 @@ export function TaskModal({ open, onClose, onSave, initial, defaultLayerId }: Ta
       startDate,
       durationDays,
       priority,
+      hasOutline,
+      outlineColor,
       layerId,
       assignees,
       assigneeIds: assignees.map((a) => a.resourceId),
@@ -162,6 +171,21 @@ export function TaskModal({ open, onClose, onSave, initial, defaultLayerId }: Ta
               </button>
             ))}
           </div>
+        </Field>
+        <Field label="Outline">
+          <label className="flex items-center gap-2 text-xs text-white cursor-pointer">
+            <input
+              type="checkbox"
+              checked={hasOutline}
+              onChange={(e) => setHasOutline(e.target.checked)}
+            />
+            Show outline on card
+          </label>
+          {hasOutline && (
+            <div className="mt-2">
+              <ColorPicker value={outlineColor} onChange={setOutlineColor} />
+            </div>
+          )}
         </Field>
       </div>
 

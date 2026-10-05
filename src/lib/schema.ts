@@ -57,6 +57,8 @@ function normalizeTask(t: unknown): Task | null {
     startDate: ensureString(obj.startDate, "2026-01-01"),
     durationDays,
     priority: ensureString(obj.priority, "mid"),
+    hasOutline: ensureBool(obj.hasOutline),
+    outlineColor: ensureString(obj.outlineColor, "white"),
     assigneeIds: assignees.map(a => a.resourceId),
     assignees,
   };

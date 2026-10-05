@@ -223,6 +223,8 @@ export function RoadmapView({ horizon, dayWidth, cardHeight, railWidth }: Roadma
               startDate: data.startDate || new Date().toISOString().slice(0, 10),
               durationDays: data.durationDays || 7,
               priority: data.priority || "mid",
+              hasOutline: data.hasOutline ?? false,
+              outlineColor: data.outlineColor || "white",
               assigneeIds: data.assigneeIds || [],
               assignees: data.assignees || [],
             });

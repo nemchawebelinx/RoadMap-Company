@@ -22,6 +22,8 @@ export interface Task {
   startDate: string; // YYYY-MM-DD
   durationDays: number;
   priority: string;
+  hasOutline: boolean;
+  outlineColor: string;
   assigneeIds: string[];
   assignees: TaskAssignee[];
 }
