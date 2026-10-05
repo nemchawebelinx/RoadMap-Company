@@ -12,6 +12,7 @@ interface TaskCardProps {
   width: number;
   dayWidth: number;
   cardHeight: number;
+  railWidth: number;
   onEdit: (task: Task) => void;
   onDelete: (task: Task) => void;
 }
@@ -23,6 +24,7 @@ export function TaskCard({
   width,
   dayWidth,
   cardHeight,
+  railWidth,
   onEdit,
   onDelete,
 }: TaskCardProps) {
@@ -92,7 +94,7 @@ export function TaskCard({
   return (
     <div
       ref={cardRef}
-      className="absolute rounded-sm overflow-hidden group cursor-grab active:cursor-grabbing select-none"
+      className="absolute rounded-sm group cursor-grab active:cursor-grabbing select-none"
       style={{
         left: pixelLeft,
         width: pixelWidth,
@@ -108,17 +110,25 @@ export function TaskCard({
     >
       {/* Content */}
       {showText && (
-        <div className="flex items-center gap-1 px-1.5 h-full overflow-hidden">
-          {/* Priority dot */}
-          {priorityMark && (
-            <span
-              className="w-2.5 h-2.5 rounded-full shrink-0 ring-1 ring-white"
-              style={{ backgroundColor: colorToHex(priorityMark.color) }}
-            />
-          )}
-          <span className="text-[10px] font-medium text-white truncate leading-tight">
-            {task.name}
-          </span>
+        <div className="flex items-center gap-1 px-1.5 h-full">
+          {/* Sticky so the name stays readable once the card's start scrolls
+              behind the rail. Confined to the card, so it slides away with the
+              card's end. */}
+          <div
+            className="sticky flex items-center gap-1 min-w-0"
+            style={{ left: railWidth }}
+          >
+            {/* Priority dot */}
+            {priorityMark && (
+              <span
+                className="w-2.5 h-2.5 rounded-full shrink-0 ring-1 ring-white"
+                style={{ backgroundColor: colorToHex(priorityMark.color) }}
+              />
+            )}
+            <span className="text-[10px] font-medium text-white truncate leading-tight">
+              {task.name}
+            </span>
+          </div>
           {showAssignees && (
             <span className="text-[9px] text-white/60 truncate ml-auto">
               {task.assignees

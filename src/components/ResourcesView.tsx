@@ -231,7 +231,7 @@ export function ResourcesView({ horizon, dayWidth, cardHeight, railWidth }: Reso
                       return (
                         <div
                           key={idx}
-                          className="absolute rounded-sm overflow-hidden group cursor-pointer"
+                          className="absolute rounded-sm group cursor-pointer"
                           style={{
                             left: pxLeft,
                             top: GAP + row * (cardHeight + GAP),
@@ -266,17 +266,25 @@ export function ResourcesView({ horizon, dayWidth, cardHeight, railWidth }: Reso
                           {/* Label */}
                           {cardHeight >= 20 && (
                             <div className="absolute top-0 left-0 w-full h-full flex items-center px-1.5 z-10">
-                              <span className="text-[10px] font-medium text-white truncate">
-                                {bar.task.name}
-                              </span>
-                              <span className="text-[9px] text-white/70 ml-1 whitespace-nowrap">
-                                {pct}%
-                              </span>
-                              {cardHeight >= 26 && (
-                                <span className="text-[8px] text-white/50 ml-1 whitespace-nowrap truncate">
-                                  Day {bar.assignee.startOffsetDays}-{bar.assignee.startOffsetDays + bar.assignee.durationDays} of {bar.task.durationDays}d
+                              {/* Sticky so the label stays readable once the
+                                  bar's start scrolls behind the rail. Confined
+                                  to the bar, so it slides away with its end. */}
+                              <div
+                                className="sticky flex items-center min-w-0"
+                                style={{ left: railWidth }}
+                              >
+                                <span className="text-[10px] font-medium text-white truncate">
+                                  {bar.task.name}
                                 </span>
-                              )}
+                                <span className="text-[9px] text-white/70 ml-1 whitespace-nowrap">
+                                  {pct}%
+                                </span>
+                                {cardHeight >= 26 && (
+                                  <span className="text-[8px] text-white/50 ml-1 whitespace-nowrap truncate">
+                                    Day {bar.assignee.startOffsetDays}-{bar.assignee.startOffsetDays + bar.assignee.durationDays} of {bar.task.durationDays}d
+                                  </span>
+                                )}
+                              </div>
                             </div>
                           )}
                           {/* Hover edit button. Stop pointerdown so the resize

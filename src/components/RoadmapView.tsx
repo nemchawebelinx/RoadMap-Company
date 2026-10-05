@@ -136,6 +136,7 @@ export function RoadmapView({ horizon, dayWidth, cardHeight, railWidth }: Roadma
                     width={s.width}
                     dayWidth={dayWidth}
                     cardHeight={cardHeight}
+                    railWidth={railWidth}
                     onEdit={(t) => setTaskModal({ open: true, task: t, layerId: layer.id })}
                     onDelete={(t) => setDeleteTaskConfirm(t)}
                   />
