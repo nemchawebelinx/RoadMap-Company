@@ -279,6 +279,25 @@ export function ResourcesView({ horizon, dayWidth, cardHeight, railWidth }: Reso
                               )}
                             </div>
                           )}
+                          {/* Hover edit button. Stop pointerdown so the resize
+                              handle does not swallow the click. */}
+                          <div
+                            className="absolute top-0 right-2 z-20 hidden group-hover:flex items-center h-full"
+                            onPointerDown={(e) => e.stopPropagation()}
+                          >
+                            <button
+                              type="button"
+                              className="text-[11px] bg-black/40 hover:bg-black/60 text-white px-1 rounded"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setTaskModal({ open: true, task: bar.task, layerId: bar.task.layerId });
+                              }}
+                              title="Edit Task"
+                            >
+                              ✎
+                            </button>
+                          </div>
+
                           {/* Resize handle for resource drag */}
                           <ResourceBarResizeHandle
                             task={bar.task}
