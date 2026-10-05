@@ -13,7 +13,7 @@ interface TaskCardProps {
   dayWidth: number;
   cardHeight: number;
   onEdit: (task: Task) => void;
-  onDelete: (id: string) => void;
+  onDelete: (task: Task) => void;
 }
 
 export function TaskCard({
@@ -138,17 +138,23 @@ export function TaskCard({
         onPointerDown={(e) => handlePointerDown(e, "resize")}
       />
 
-      {/* Hover edit buttons */}
-      <div className="absolute top-0 right-2 hidden group-hover:flex items-center gap-0.5 h-full">
+      {/* Hover edit buttons. Stop pointerdown so the card drag handler
+          does not preventDefault() and swallow the click. */}
+      <div
+        className="absolute top-0 right-2 z-10 hidden group-hover:flex items-center gap-0.5 h-full"
+        onPointerDown={(e) => e.stopPropagation()}
+      >
         <button
+          type="button"
           className="text-[11px] bg-black/40 hover:bg-black/60 text-white px-1 rounded"
           onClick={(e) => { e.stopPropagation(); onEdit(task); }}
         >
           ✎
         </button>
         <button
+          type="button"
           className="text-[11px] bg-black/40 hover:bg-red-600/80 text-white px-1 rounded"
-          onClick={(e) => { e.stopPropagation(); onDelete(task.id); }}
+          onClick={(e) => { e.stopPropagation(); onDelete(task); }}
         >
           ✕
         </button>

@@ -9,6 +9,7 @@ import { TaskCard } from "./TaskCard";
 import { LayerModal } from "./LayerModal";
 import { TaskModal } from "./TaskModal";
 import { InfoModal } from "./InfoModal";
+import { ConfirmModal } from "./ConfirmModal";
 
 interface RoadmapViewProps {
   horizon: Horizon;
@@ -35,6 +36,7 @@ export function RoadmapView({ horizon, dayWidth, cardHeight, railWidth }: Roadma
   const [layerModal, setLayerModal] = useState<{ open: boolean; layer: Layer | null }>({ open: false, layer: null });
   const [taskModal, setTaskModal] = useState<{ open: boolean; task: Task | null; layerId: string }>({ open: false, task: null, layerId: "" });
   const [infoModal, setInfoModal] = useState<{ open: boolean; title: string; info: Record<string, string | number | boolean> }>({ open: false, title: "", info: {} });
+  const [deleteTaskConfirm, setDeleteTaskConfirm] = useState<Task | null>(null);
 
   const visibleLayers = layers.filter((l) => !l.isHidden).sort((a, b) => a.order - b.order);
   const hiddenLayers = layers.filter((l) => l.isHidden).sort((a, b) => a.order - b.order);
@@ -135,7 +137,7 @@ export function RoadmapView({ horizon, dayWidth, cardHeight, railWidth }: Roadma
                     dayWidth={dayWidth}
                     cardHeight={cardHeight}
                     onEdit={(t) => setTaskModal({ open: true, task: t, layerId: layer.id })}
-                    onDelete={deleteTask}
+                    onDelete={(t) => setDeleteTaskConfirm(t)}
                   />
                 </div>
               ))}
@@ -232,6 +234,15 @@ export function RoadmapView({ horizon, dayWidth, cardHeight, railWidth }: Roadma
         onClose={() => setInfoModal({ open: false, title: "", info: {} })}
         title={infoModal.title}
         info={infoModal.info}
+      />
+      <ConfirmModal
+        open={deleteTaskConfirm !== null}
+        onClose={() => setDeleteTaskConfirm(null)}
+        onConfirm={() => {
+          if (deleteTaskConfirm) deleteTask(deleteTaskConfirm.id);
+        }}
+        title="Delete Task"
+        message={`Delete task "${deleteTaskConfirm?.name}"? This cannot be undone.`}
       />
     </>
   );
