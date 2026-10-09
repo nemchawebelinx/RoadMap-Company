@@ -1,4 +1,4 @@
-import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
+import { doc, getDoc, serverTimestamp, setDoc, FirestoreError } from "firebase/firestore";
 import { getFirebaseDb, isFirebaseConfigured } from "./firebase";
 import { normalizeProjectState } from "./schema";
 import { ProjectState } from "./types";
@@ -8,8 +8,19 @@ const DOC_ID = "default";
 
 export type SaveResult = { ok: true } | { ok: false; error: string };
 
+export type LoadResult =
+  | { ok: true; state: ProjectState | null }
+  | { ok: false; denied: boolean; error: string };
+
 function message(e: unknown): string {
+  if (e instanceof FirestoreError && e.code === "permission-denied") {
+    return "Access denied. Your account is not authorized to access this roadmap.";
+  }
   return e instanceof Error ? e.message : String(e);
+}
+
+function isDenied(e: unknown): boolean {
+  return e instanceof FirestoreError && e.code === "permission-denied";
 }
 
 export async function saveToFirestore(state: ProjectState): Promise<SaveResult> {
@@ -30,16 +41,16 @@ export async function saveToFirestore(state: ProjectState): Promise<SaveResult> 
   }
 }
 
-export async function loadFromFirestore(): Promise<ProjectState | null> {
-  if (!isFirebaseConfigured()) return null;
+export async function loadFromFirestore(): Promise<LoadResult> {
+  if (!isFirebaseConfigured()) return { ok: true, state: null };
   const db = getFirebaseDb();
-  if (!db) return null;
+  if (!db) return { ok: false, denied: false, error: "Firebase failed to initialize" };
   try {
     const snap = await getDoc(doc(db, COLLECTION, DOC_ID));
-    if (snap.exists()) return normalizeProjectState(snap.data());
-    return null;
+    if (snap.exists()) return { ok: true, state: normalizeProjectState(snap.data()) };
+    return { ok: true, state: null };
   } catch (e) {
     console.error("Firestore load failed:", e);
-    return null;
+    return { ok: false, denied: isDenied(e), error: message(e) };
   }
 }

@@ -1,10 +1,11 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useStore } from "@/lib/store";
 import { ViewMode, ZOOM_PRESETS, MIN_CARD_HEIGHT, MAX_CARD_HEIGHT } from "@/lib/types";
 import { formatDate } from "@/lib/date";
 import { saveToFirestore } from "@/lib/firestore";
 import { isFirebaseConfigured } from "@/lib/firebase";
+import { signOutUser, subscribeToAuth, type User } from "@/lib/auth";
 
 interface HeaderProps {
   onCenterToday: () => void;
@@ -35,6 +36,9 @@ export function Header({ onCenterToday }: HeaderProps) {
   >({ status: "idle" });
 
   const effectiveDayWidth = dayWidth * (zoomPercent / 100);
+
+  const [user, setUser] = useState<User | null>(null);
+  useEffect(() => subscribeToAuth(setUser), []);
 
   const handleImport = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -182,6 +186,24 @@ export function Header({ onCenterToday }: HeaderProps) {
       ) : savedAt ? (
         <span className="text-xs text-green-400 mr-2">✓ Saved to Storage {savedAt}</span>
       ) : null}
+
+      {/* Auth */}
+      {user && (
+        <div className="flex items-center gap-1.5 mr-2">
+          <span className="text-xs text-[var(--text-muted)] truncate max-w-[160px]" title={user.email ?? undefined}>
+            {user.email}
+          </span>
+          <button
+            onClick={async () => {
+              await signOutUser();
+              window.location.reload();
+            }}
+            className="text-[10px] px-1.5 py-0.5 rounded bg-[var(--bg-tertiary)] text-[var(--text-muted)] hover:text-white hover:bg-[#333]"
+          >
+            Sign out
+          </button>
+        </div>
+      )}
 
       {/* Actions */}
       <button

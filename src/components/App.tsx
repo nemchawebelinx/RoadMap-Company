@@ -11,6 +11,8 @@ import { Header } from "./Header";
 import { MilestoneModal } from "./MilestoneModal";
 import { Milestone } from "@/lib/types";
 import { loadFromFirestore } from "@/lib/firestore";
+import { signOutUser } from "@/lib/auth";
+import { getFirebaseAuth } from "@/lib/firebase";
 
 const RAIL_WIDTH = 160;
 
@@ -38,12 +40,21 @@ export function App() {
   }>({ open: false, milestone: null });
 
   const [mounted, setMounted] = useState(false);
+  const [accessDenied, setAccessDenied] = useState(false);
   useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     let cancelled = false;
-    loadFromFirestore().then((remote) => {
-      if (!cancelled) hydrateFromRemote(remote);
+    loadFromFirestore().then((result) => {
+      if (cancelled) return;
+      if (result.ok) {
+        hydrateFromRemote(result.state);
+      } else if (result.denied) {
+        setAccessDenied(true);
+      } else {
+        // Network or other error — fall back to localStorage
+        hydrateFromRemote(null);
+      }
     });
     return () => {
       cancelled = true;
@@ -86,6 +97,30 @@ export function App() {
   }, [horizonStartMs, effectiveDayWidth]);
 
   if (!mounted) return null;
+
+  if (accessDenied) {
+    const auth = getFirebaseAuth();
+    const email = auth?.currentUser?.email ?? "your account";
+    return (
+      <div className="h-screen flex items-center justify-center bg-[var(--bg)]">
+        <div className="flex flex-col items-center gap-4 p-8 rounded-lg border border-[var(--border)] bg-[var(--bg-secondary)] max-w-sm w-full">
+          <h1 className="text-white text-lg font-bold">Access Denied</h1>
+          <p className="text-[var(--text-muted)] text-sm text-center">
+            <span className="text-white font-medium">{email}</span> is not authorized to access this roadmap.
+          </p>
+          <button
+            onClick={async () => {
+              await signOutUser();
+              window.location.reload();
+            }}
+            className="px-4 py-2 rounded bg-[var(--bg-tertiary)] text-white text-sm hover:bg-[#333] transition-colors"
+          >
+            Sign out and try a different account
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const totalWidth = horizon.totalDays * effectiveDayWidth;
   const milestoneBandHeight = getMilestoneBandHeight(milestones, horizon, effectiveDayWidth);
