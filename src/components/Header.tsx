@@ -127,6 +127,14 @@ export function Header({ onCenterToday }: HeaderProps) {
       >
         Resources
       </button>
+      <a
+        href="https://docs.google.com/document/d/1lyX7uDyNXV8wuNFeMMkfFGvF5wOERd5h2qxcGXa9_fc/edit?tab=t.0"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="px-3 py-1 rounded text-xs font-medium text-[var(--text-muted)] hover:text-white"
+      >
+        ChangeLog
+      </a>
 
       <div className="w-px h-5 bg-[var(--border)] mx-1" />
 
