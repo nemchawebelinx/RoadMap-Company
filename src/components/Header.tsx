@@ -6,6 +6,7 @@ import { formatDate } from "@/lib/date";
 import { saveToFirestore } from "@/lib/firestore";
 import { isFirebaseConfigured } from "@/lib/firebase";
 import { signOutUser, subscribeToAuth, type User } from "@/lib/auth";
+import { Modal, btnSecondary } from "./Modal";
 
 interface HeaderProps {
   onCenterToday: () => void;
@@ -38,6 +39,7 @@ export function Header({ onCenterToday }: HeaderProps) {
   const effectiveDayWidth = dayWidth * (zoomPercent / 100);
 
   const [user, setUser] = useState<User | null>(null);
+  const [permissionWarning, setPermissionWarning] = useState(false);
   useEffect(() => subscribeToAuth(setUser), []);
 
   const handleImport = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,6 +85,7 @@ export function Header({ onCenterToday }: HeaderProps) {
     }
     setSync({ status: "saving" });
     const result = await saveToFirestore(data);
+    if (!result.ok && result.denied) setPermissionWarning(true);
     setSync(
       result.ok
         ? { status: "synced", at: new Date().toLocaleTimeString("en-GB", { hour12: false }) }
@@ -102,6 +105,7 @@ export function Header({ onCenterToday }: HeaderProps) {
   const currentPreset = ZOOM_PRESETS.find((p) => p.dayWidth === dayWidth);
 
   return (
+    <>
     <header className="flex items-center gap-2 px-3 py-1.5 border-b border-[var(--border)] bg-[var(--bg-secondary)] text-sm shrink-0 flex-wrap min-h-[40px]">
       {/* App name */}
       <span className="font-bold text-white mr-2">WebelinxGames</span>
@@ -232,5 +236,21 @@ export function Header({ onCenterToday }: HeaderProps) {
       </button>
       <input ref={fileRef} type="file" accept=".json" onChange={handleImport} className="hidden" />
     </header>
+    <Modal
+      open={permissionWarning}
+      onClose={() => setPermissionWarning(false)}
+      title="Missing permission"
+      width="max-w-sm"
+    >
+      <p className="text-xs text-white leading-relaxed">
+        You don&apos;t have permission to save changes to this roadmap. Contact an admin to request edit permission.
+      </p>
+      <div className="flex justify-end mt-4">
+        <button className={btnSecondary} onClick={() => setPermissionWarning(false)}>
+          Close
+        </button>
+      </div>
+    </Modal>
+    </>
   );
 }

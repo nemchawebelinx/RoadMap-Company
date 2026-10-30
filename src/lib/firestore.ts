@@ -6,7 +6,12 @@ import { ProjectState } from "./types";
 const COLLECTION = "roadmap-company";
 const DOC_ID = "default";
 
-export type SaveResult = { ok: true } | { ok: false; error: string };
+export type SaveResult =
+  | { ok: true }
+  | { ok: false; denied: boolean; error: string };
+
+const WRITE_DENIED_MESSAGE =
+  "You don't have permission to save changes to this roadmap. Contact an admin(nemanjapetrasinovic@webelinx.com) to request edit permission.";
 
 export type LoadResult =
   | { ok: true; state: ProjectState | null }
@@ -25,10 +30,10 @@ function isDenied(e: unknown): boolean {
 
 export async function saveToFirestore(state: ProjectState): Promise<SaveResult> {
   if (!isFirebaseConfigured()) {
-    return { ok: false, error: "Firebase env vars are missing (.env.local)" };
+    return { ok: false, denied: false, error: "Firebase credentials are missing!" };
   }
   const db = getFirebaseDb();
-  if (!db) return { ok: false, error: "Firebase failed to initialize" };
+  if (!db) return { ok: false, denied: false, error: "Firebase failed to initialize" };
   try {
     await setDoc(doc(db, COLLECTION, DOC_ID), {
       ...JSON.parse(JSON.stringify(state)),
@@ -37,7 +42,8 @@ export async function saveToFirestore(state: ProjectState): Promise<SaveResult> 
     return { ok: true };
   } catch (e) {
     console.error("Firestore save failed:", e);
-    return { ok: false, error: message(e) };
+    const denied = isDenied(e);
+    return { ok: false, denied, error: denied ? WRITE_DENIED_MESSAGE : message(e) };
   }
 }
 

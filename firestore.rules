@@ -1,18 +1,26 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    function isAllowed() {
-      return request.auth != null
-        && request.auth.token.email_verified == true
-        && request.auth.token.email in ['YOUR_EMAIL@gmail.com'];
+
+    // Only people on mail list can edit.
+    function isEditorForRoadMap() {
+      return request.auth != null && request.auth.token.email in [
+        'nemanjapetrasinovic@webelinx.com',
+        'jasnamilojkovic@webelinx.com',
+        'svetlanaspasic@webelinx.com',
+        'miodragdevedzic@webelinx.com',
+        'markoandrejevic@webelinx.com'
+      ];
+    }
+
+    //roadmap-company is excluded for write permission
+    match /{collection}/{document=**} {
+      allow read, write: if collection != 'roadmap-company';
     }
 
     match /roadmap-company/{docId} {
-      allow read, write: if isAllowed();
-    }
-
-    match /{document=**} {
-      allow read, write: if false;
+      allow read;
+      allow write: if isEditorForRoadMap();
     }
   }
 }
