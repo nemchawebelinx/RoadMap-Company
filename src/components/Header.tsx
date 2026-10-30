@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { useStore } from "@/lib/store";
 import { ViewMode, ZOOM_PRESETS, MIN_CARD_HEIGHT, MAX_CARD_HEIGHT } from "@/lib/types";
 import { formatDate } from "@/lib/date";
-import { saveToFirestore } from "@/lib/firestore";
+import { loadFromFirestore, saveToFirestore } from "@/lib/firestore";
 import { isFirebaseConfigured } from "@/lib/firebase";
 import { signOutUser, subscribeToAuth, type User } from "@/lib/auth";
 import { Modal, btnSecondary } from "./Modal";
@@ -24,16 +24,18 @@ export function Header({ onCenterToday }: HeaderProps) {
   const savedAt = useStore((s) => s.savedAt);
   const hydrated = useStore((s) => s.hydrated);
   const importState = useStore((s) => s.importState);
-  const resetState = useStore((s) => s.resetState);
+  const restoreState = useStore((s) => s.restoreState);
   const getExportData = useStore((s) => s.getExportData);
   const fileRef = useRef<HTMLInputElement>(null);
 
   const [sync, setSync] = useState<
     | { status: "idle" }
     | { status: "saving" }
+    | { status: "restoring" }
     | { status: "local" }
     | { status: "synced"; at: string }
-    | { status: "error"; error: string }
+    | { status: "restored"; at: string }
+    | { status: "error"; error: string; unchanged?: boolean }
   >({ status: "idle" });
 
   const effectiveDayWidth = dayWidth * (zoomPercent / 100);
@@ -91,6 +93,38 @@ export function Header({ onCenterToday }: HeaderProps) {
         ? { status: "synced", at: new Date().toLocaleTimeString("en-GB", { hour12: false }) }
         : { status: "error", error: result.error }
     );
+  };
+
+  const handleReset = async () => {
+    if (!hydrated || sync.status === "saving" || sync.status === "restoring") return;
+    if (!isFirebaseConfigured()) {
+      setSync({
+        status: "error",
+        error: "Firebase is not configured, so there is no saved roadmap to restore.",
+        unchanged: true,
+      });
+      return;
+    }
+    setSync({ status: "restoring" });
+    const result = await loadFromFirestore();
+    if (!result.ok) {
+      if (result.denied) setPermissionWarning(result.error);
+      setSync({ status: "error", error: result.error, unchanged: true });
+      return;
+    }
+    if (!result.state) {
+      setSync({
+        status: "error",
+        error: "No saved roadmap found in Firestore.",
+        unchanged: true,
+      });
+      return;
+    }
+    restoreState(result.state);
+    setSync({
+      status: "restored",
+      at: new Date().toLocaleTimeString("en-GB", { hour12: false }),
+    });
   };
 
   const handleZoomIn = () => {
@@ -189,11 +223,16 @@ export function Header({ onCenterToday }: HeaderProps) {
         <span className="text-xs text-[var(--text-muted)] mr-2">⏳ Loading from Firestore…</span>
       ) : sync.status === "saving" ? (
         <span className="text-xs text-[var(--text-muted)] mr-2">⏳ Saving to Firestore…</span>
+      ) : sync.status === "restoring" ? (
+        <span className="text-xs text-[var(--text-muted)] mr-2">⏳ Restoring from Firestore…</span>
+      ) : sync.status === "restored" ? (
+        <span className="text-xs text-green-400 mr-2">✓ Restored from Firestore {sync.at}</span>
       ) : sync.status === "synced" ? (
         <span className="text-xs text-green-400 mr-2">✓ Saved to roadmap-company {sync.at}</span>
       ) : sync.status === "error" ? (
         <span className="text-xs text-red-400 mr-2 max-w-[340px] truncate" title={sync.error}>
-          ⚠ Firestore: {sync.error} (saved locally)
+          ⚠ Firestore: {sync.error}
+          {sync.unchanged ? "" : " (saved locally)"}
         </span>
       ) : savedAt ? (
         <span className="text-xs text-green-400 mr-2">✓ Saved to Storage {savedAt}</span>
@@ -220,12 +259,17 @@ export function Header({ onCenterToday }: HeaderProps) {
       {/* Actions */}
       <button
         onClick={handleSave}
-        disabled={!hydrated || sync.status === "saving"}
+        disabled={!hydrated || sync.status === "saving" || sync.status === "restoring"}
         className="px-2 py-1 rounded bg-[var(--bg-tertiary)] text-xs hover:bg-[#333] disabled:opacity-50"
       >
         <span className="text-[14px]">💾</span> Save
       </button>
-      <button onClick={resetState} className="px-2 py-1 rounded bg-[var(--bg-tertiary)] text-xs hover:bg-[#333]">
+      <button
+        onClick={handleReset}
+        disabled={!hydrated || sync.status === "saving" || sync.status === "restoring"}
+        title="Discard unsaved changes and restore the last Firestore save"
+        className="px-2 py-1 rounded bg-[var(--bg-tertiary)] text-xs hover:bg-[#333] disabled:opacity-50"
+      >
         <span className="text-[14px]">🔄</span> Reset
       </button>
       <button onClick={() => fileRef.current?.click()} className="px-2 py-1 rounded bg-[var(--bg-tertiary)] text-xs hover:bg-[#333]">

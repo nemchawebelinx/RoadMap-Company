@@ -30,9 +30,9 @@ interface AppState extends ProjectState {
   setCardHeight: (h: number) => void;
   setZoomPercent: (p: number) => void;
 
-  // Import / reset
+  // Import / restore
   importState: (raw: unknown) => void;
-  resetState: () => void;
+  restoreState: (state: ProjectState) => void;
   getExportData: () => ProjectState;
 
   // Layer CRUD
@@ -147,10 +147,12 @@ export const useStore = create<AppState>((set, get) => {
       persist({ ...get(), ...state });
     },
 
-    resetState: () => {
-      const empty = emptyState();
-      set({ ...empty, savedAt: null });
-      localStorage.removeItem(STORAGE_KEY);
+    // Replace the working copy with a previously saved snapshot (the last
+    // Firestore document). View settings stay as they are.
+    restoreState: (state) => {
+      const next = normalizeProjectState(state);
+      set({ ...next, savedAt: null });
+      persist(next);
     },
 
     getExportData: () => {
