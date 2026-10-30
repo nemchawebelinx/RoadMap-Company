@@ -1,4 +1,4 @@
-import { doc, getDoc, serverTimestamp, setDoc, FirestoreError } from "firebase/firestore";
+import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import { getFirebaseDb, isFirebaseConfigured } from "./firebase";
 import { normalizeProjectState } from "./schema";
 import { ProjectState } from "./types";
@@ -17,15 +17,23 @@ export type LoadResult =
   | { ok: true; state: ProjectState | null }
   | { ok: false; denied: boolean; error: string };
 
+function errorCode(e: unknown): string {
+  if (!e || typeof e !== "object" || !("code" in e)) return "";
+  return String((e as { code: unknown }).code);
+}
+
 function message(e: unknown): string {
-  if (e instanceof FirestoreError && e.code === "permission-denied") {
+  if (isDenied(e)) {
     return "Access denied. Your account is not authorized to access this roadmap.";
   }
   return e instanceof Error ? e.message : String(e);
 }
 
+// FirebaseError resets the prototype, so instanceof FirestoreError is false
+// for real permission-denied errors.
 function isDenied(e: unknown): boolean {
-  return e instanceof FirestoreError && e.code === "permission-denied";
+  const code = errorCode(e);
+  return code === "permission-denied" || code === "firestore/permission-denied";
 }
 
 export async function saveToFirestore(state: ProjectState): Promise<SaveResult> {

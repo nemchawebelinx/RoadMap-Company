@@ -39,7 +39,7 @@ export function Header({ onCenterToday }: HeaderProps) {
   const effectiveDayWidth = dayWidth * (zoomPercent / 100);
 
   const [user, setUser] = useState<User | null>(null);
-  const [permissionWarning, setPermissionWarning] = useState(false);
+  const [permissionWarning, setPermissionWarning] = useState<string | null>(null);
   useEffect(() => subscribeToAuth(setUser), []);
 
   const handleImport = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,7 +85,7 @@ export function Header({ onCenterToday }: HeaderProps) {
     }
     setSync({ status: "saving" });
     const result = await saveToFirestore(data);
-    if (!result.ok && result.denied) setPermissionWarning(true);
+    if (!result.ok && result.denied) setPermissionWarning(result.error);
     setSync(
       result.ok
         ? { status: "synced", at: new Date().toLocaleTimeString("en-GB", { hour12: false }) }
@@ -237,16 +237,14 @@ export function Header({ onCenterToday }: HeaderProps) {
       <input ref={fileRef} type="file" accept=".json" onChange={handleImport} className="hidden" />
     </header>
     <Modal
-      open={permissionWarning}
-      onClose={() => setPermissionWarning(false)}
+      open={permissionWarning !== null}
+      onClose={() => setPermissionWarning(null)}
       title="Missing permission"
       width="max-w-sm"
     >
-      <p className="text-xs text-white leading-relaxed">
-        You don&apos;t have permission to save changes to this roadmap. Contact an admin to request edit permission.
-      </p>
+      <p className="text-xs text-white leading-relaxed">{permissionWarning}</p>
       <div className="flex justify-end mt-4">
-        <button className={btnSecondary} onClick={() => setPermissionWarning(false)}>
+        <button className={btnSecondary} onClick={() => setPermissionWarning(null)}>
           Close
         </button>
       </div>
